@@ -8,6 +8,9 @@ window.addEventListener('load',()=>{
 		if(urlFilename == 'login.php' || urlFilename == 'register.php' || urlFilename == 'forgotPassword.php'){
 			return;
 		}
+		if(urlFilename == 'index.php' || urlFilename == '') {
+			return;
+		}
 		if(urlFilename != 'index.php' && urlFilename != '') {
 			document.querySelectorAll(`a[href="index.php"]`)[1].parentElement.classList.remove('active');
 			console.log(document.querySelectorAll(`a[href="index.php"]`)[1].parentElement);

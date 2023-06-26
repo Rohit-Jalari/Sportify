@@ -5,7 +5,7 @@ lang="en"
 class="light-style layout-menu-fixed"
 dir="ltr"
 data-theme="theme-default"
-data-assets-path="../sneat/assets/"
+data-assets-path="assets/"
 data-template="vertical-menu-template-free"
 >
 <head>
@@ -28,6 +28,8 @@ data-template="vertical-menu-template-free"
 					</div>
 				</div>
 			</div>
+			<!-- Overlay -->
+			<div class="layout-overlay layout-menu-toggle"></div>
 		</div>
 	</div>
 </body>

@@ -84,6 +84,9 @@ data-template="vertical-menu-template-free"
                 <span>Create an account</span>
               </a>
             </p>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-label-secondary" onclick="history.back()">Back</button>
+            </div>
           </div>
         </div>
         <!-- /Register -->

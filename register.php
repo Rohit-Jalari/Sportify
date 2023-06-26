@@ -85,6 +85,9 @@ data-template="vertical-menu-template-free"
                 <span>Sign in instead</span>
               </a>
             </p>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-label-secondary" onclick="history.back()">Back</button>
+            </div>
           </div>
         </div>
         <!-- Register Card -->

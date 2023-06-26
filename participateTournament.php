@@ -1,3 +1,6 @@
+<?php
+$login = false;
+?>
 <!DOCTYPE html>
 <html>
 <html
@@ -24,7 +27,8 @@ data-template="vertical-menu-template-free"
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
-						
+						<!-- Modal if Not logged in-->
+						<?php include('loginModal.php')?>
 					</div>
 				</div>
 			</div>
@@ -32,4 +36,11 @@ data-template="vertical-menu-template-free"
 	</div>
 </body>
 <?php include('script.php')?>
+<?php if($login == false ) {?>
+	<script>
+		var myModal = new bootstrap.Modal(document.getElementById('modalToggle'));
+		window.addEventListener('load',()=>{
+			myModal.show();
+		});
+	</script> <?php }?>
 </html>

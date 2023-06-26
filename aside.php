@@ -40,7 +40,7 @@
 			</a>
 			<ul class="menu-sub">
 				<li class="menu-item">
-					<a href="enterCode.php" class="menu-link">
+					<a href="enterCode - Copy.php" class="menu-link">
 						<div data-i18n="Code">Enter Code</div>
 					</a>
 				</li>
