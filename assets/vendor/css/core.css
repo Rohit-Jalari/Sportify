@@ -15299,7 +15299,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   left: 0;
   padding-top: 0.25rem;
   padding-bottom: 0.2rem;
-  height: 3.2rem;
+  height: 4rem;
   flex-wrap: nowrap;
   color: #697a8d;
   z-index: 2;
@@ -15324,7 +15324,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
 }
 .nav-shadow{
   position: sticky;
-  top: 70px;
+  top: 82px;
   width: calc(100% - (1.625rem * 2));
   height: 6px;
   padding: 0 1.5rem;
