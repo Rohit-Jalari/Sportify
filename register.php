@@ -5,7 +5,7 @@ lang="en"
 class="light-style layout-menu-fixed"
 dir="ltr"
 data-theme="theme-default"
-data-assets-path="../sneat/assets/"
+data-assets-path="assets/"
 data-template="vertical-menu-template-free"
 >
 <head>
@@ -16,6 +16,59 @@ data-template="vertical-menu-template-free"
 </head>
 
 <body>
+  <?php
+    //connect to database
+  require_once("dbCon.php");
+
+    //checks if signUp button is clicked or not
+  if(isset($_POST['signUp'])) {
+
+      //retrives value from form
+    $username = htmlspecialchars($_POST['username']);
+    $email = htmlspecialchars($_POST['email']);
+    $password = htmlspecialchars($_POST['password']);
+    $cpassword = htmlspecialchars($_POST['cpassword']);
+    $profilePath = 'default_profile.png';
+
+      //validates password and confirm password
+    if($password === $cpassword) {
+
+        //query for search email
+      $emailQuery = " SELECT * FROM `user` WHERE `email` = '$email' ";
+
+        //query search for email in database
+      $emailSearch = mysqli_query($con,$emailQuery);
+
+        //returns the no.of rows where email is found i.e returns 1 if email is found in DB
+      if(mysqli_num_rows($emailSearch) == 0) {
+
+          //hashing the password
+        $hPassword = password_hash($password, PASSWORD_BCRYPT);
+
+          //query to enter data in database
+        $insertQuery = " INSERT INTO `user` (`first_name`,`last_name`,`email`,`password`,`profile_path`) VALUES ('$fname','$lname','$email','$hPassword','$profilePath') " ;
+
+          //entering data in database
+        $insert = mysqli_query($con,$insertQuery);
+
+        if($insert) { ?>
+          <script>
+            location.replace("login.php");
+          </script>
+        <?php } else {
+          $_SESSION['error'] = "Account Creation Failed !!!";
+        }
+      } else { 
+        $_SESSION['error'] = "Account Already Exits!!!";
+      }
+    } else {
+      $_SESSION['error'] = "Entered Passwords Didn't Match!!!";   
+    }
+  }
+  ?>
+
+
+
   <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
       <div class="authentication-inner">
@@ -36,7 +89,7 @@ data-template="vertical-menu-template-free"
             <h4 class="mb-2">Adventure starts here 🚀</h4>
             <p class="mb-4">Make your app management easy and fun!</p>
 
-            <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+            <form id="formAuthentication" class="mb-3" action="" method="POST">
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input
@@ -66,6 +119,20 @@ data-template="vertical-menu-template-free"
                   <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                 </div>
               </div>
+              <div class="mb-3 form-password-toggle">
+                <label class="form-label" for="cpassword">Confirm Password</label>
+                <div class="input-group input-group-merge">
+                  <input
+                  type="password"
+                  id="cpassword"
+                  class="form-control"
+                  name="cpassword"
+                  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                  aria-describedby="password"
+                  />
+                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+              </div>
 
               <div class="mb-3">
                 <div class="form-check">
@@ -76,7 +143,7 @@ data-template="vertical-menu-template-free"
                   </label>
                 </div>
               </div>
-              <button class="btn btn-primary d-grid w-100">Sign up</button>
+              <button class="btn btn-primary d-grid w-100" name="signUp">Sign up</button>
             </form>
 
             <p class="text-center">
@@ -96,5 +163,11 @@ data-template="vertical-menu-template-free"
   </div>
 </body>
 <?php include('script.php')?>
+<script type="text/javascript">
+  //snippet from stackoverflow to prevent auto submission of form after refresh
+  if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 </html>
 

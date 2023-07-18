@@ -16,6 +16,63 @@ data-template="vertical-menu-template-free"
 </head>
 
 <body>
+  <?php 
+    require_once('dbCon.php');
+
+    //checks if Login buttons is clicked or not
+    if(isset($_POST['login'])) {
+      ?>
+      <script>
+        console.log("set");
+      </script>
+      <?php
+
+      //retrieve values from form
+      $email = htmlspecialchars($_POST['email']);
+      $password = htmlspecialchars($_POST['password']);
+
+      //query to search email in user
+      $emailQuery = " SELECT * FROM `user` WHERE `email` = '$email' ";
+
+      //query search for email in database
+      $emailSearch = mysqli_query($con,$emailQuery);
+
+    if(mysqli_num_rows($emailSearch)) {
+
+        //returns associative array with data of respective row of email in DB
+        $recordPointer = mysqli_fetch_assoc($emailSearch);
+        //retrives password from database through associative array
+        $dbPassword = $recordPointer['password'];
+
+        //validates entered password and hashed password in database
+        //password_verify($password, $dbPassword)
+        if(password_verify($password, $dbPassword)) {
+
+          //sets session
+          $_SESSION['loggedIn'] = true;
+          $_SESSION['userFirstName'] = $recordPointer['first_name'];
+          $_SESSION['userLastName'] = $recordPointer['last_name'];
+          $_SESSION['userEmail'] = $recordPointer['email'];
+          $_SESSION['userId'] = $recordPointer['user_id'];
+          $_SESSION['profilePath'] = $recordPointer['profile_path'];
+        ?>
+          <script>
+            location.replace("index.php");
+          </script>
+        <?php } else {
+
+          $_SESSION['error'] = "Incorrect Password !!!";
+        }
+      } else {?>        <script>
+            alert("Account doesnot exist");
+          </script>
+          <?php
+        $_SESSION['error'] = "Account Doesn't Exists !!!";
+      } 
+  } ?>
+
+
+
   <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
       <div class="authentication-inner">
@@ -36,7 +93,7 @@ data-template="vertical-menu-template-free"
             <h4 class="mb-2">Welcome to <span class="fw-bold mark">Sportify !</span> 👋</h4>
             <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-            <form id="formAuthentication" class="mb-3" action="index.php" method="POST">
+            <form id="formAuthentication" class="mb-3" action="" method="POST">
               <div class="mb-3">
                 <label for="email" class="form-label">Email or Username</label>
                 <input
@@ -74,7 +131,7 @@ data-template="vertical-menu-template-free"
                 </div>
               </div>
               <div class="mb-3">
-                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                <button class="btn btn-primary d-grid w-100" name="login">Sign in</button>
               </div>
             </form>
 
@@ -95,5 +152,11 @@ data-template="vertical-menu-template-free"
   </div>
 </body>
 <?php include('script.php')?>
+<script type="text/javascript">
+  //snippet from stackoverflow to prevent auto submission of form after refresh
+  if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 </html>
 
