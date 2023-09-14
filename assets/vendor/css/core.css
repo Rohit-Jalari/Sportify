@@ -3850,7 +3850,6 @@ textarea.form-control-lg {
 }
 
 .card {
-  padding-top: 1rem;
   min-height: 37rem;
   position: relative;
   min-width: 0;
@@ -3885,7 +3884,7 @@ textarea.form-control-lg {
 
 .card-body {
   flex: 1 1 auto;
-  padding: 1.5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
 }
 
 .card-title {
@@ -15330,6 +15329,12 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   padding: 0 1.5rem;
   margin: auto;
   box-shadow: inset -4px -13px 10px 13px lightblue;
+  z-index: 1000;
+}
+.nav-shadow::before{
+  height: 10px;
+  width: 100%;
+  background-color: lime;
 }
 .layout-navbar.navbar-detached.container-xxl {
   max-width: calc(1440px - calc(1.625rem * 2));

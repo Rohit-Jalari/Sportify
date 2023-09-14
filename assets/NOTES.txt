@@ -1,3 +1,6 @@
+var state = "<?php Print($state); ?>";  //php value to js variable
+
+
 
 //sidebar-background-color change
 .bg-menu-theme {

@@ -1,5 +1,5 @@
 <?php
-$login = false;
+require('session.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,7 +36,7 @@ data-template="vertical-menu-template-free"
 	</div>
 </body>
 <?php include('script.php')?>
-<?php if($login == false ) {?>
+<?php if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != true ) {?>
 	<script>
 		var myModal = new bootstrap.Modal(document.getElementById('modalToggle'));
 		window.addEventListener('load',()=>{
