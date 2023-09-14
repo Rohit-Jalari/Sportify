@@ -1,3 +1,6 @@
+<?php
+require('session.php');
+?>
 <!DOCTYPE html>
 <html>
 <html
@@ -9,7 +12,7 @@ data-assets-path="assets/"
 data-template="vertical-menu-template-free"
 >
 <head>
-	<?php include('head.php'); ?>
+	<?php include('head.php');?>
 </head>
 
 <body>
@@ -28,9 +31,9 @@ data-template="vertical-menu-template-free"
 					</div>
 				</div>
 			</div>
-			<!-- Overlay -->
-			<div class="layout-overlay layout-menu-toggle"></div>
 		</div>
+		<!-- Overlay -->
+		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 </body>
 <?php include('script.php')?>

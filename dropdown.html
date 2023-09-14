@@ -4,6 +4,18 @@
 	<title>
 		
 	</title>
+	<style type="text/css">
+		body{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		input{
+			width: 20rem;
+			height: 2rem;
+			font-size: 2rem;
+		}
+	</style>
 	<!-- Bootstrap CSS -->
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta2/css/bootstrap.min.css"> -->
 
@@ -18,20 +30,22 @@
 
 </head>
 <body>
-	<select class="form-select" multiple>
-		<option value="1">Option 1</option>
-		<option value="2">Option 2</option>
-		<option value="3">Option 3</option>
-		<option value="4">Option 4</option>
-		<option value="5">Option 5</option>
-	</select>
-
-
+	<input id="input" class="form-control delimiter-mask" type="text"/>
+	<div id="target">
+		
+	</div>
 </body>
+<script type="text/javascript" src="assets/vendor/libs/cleave/Cleave.min.js"></script>
+<script type="text/javascript" src="inputLimitLoad.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('.form-select').select2();
+	var cleave = new Cleave(".delimiter-mask", {
+		delimiter: " - ",
+		blocks: [3, 3, 3],
+		uppercase: true
 	});
-
+	window.addEventListener('load',() => {
+		inputLimitLoad('target','input',9);
+		
+	});
 </script>
 </html>

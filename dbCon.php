@@ -1,12 +1,21 @@
 <?php
-	$server = "localhost";
-	$uName = "root";
-	$pass = "";
-	$dbName = "Sportify";
+require 'vendorMongo/autoload.php';
+$databaseName = 'Sportify';
 
-	$con = mysqli_connect($server,$uName,$pass,$dbName);
+$mongoClient = new MongoDB\Client;
+if ($mongoClient) {
+    $databaseCon = $mongoClient->$databaseName;
+    ?>
+    <script>
+        console.log("Connection Succesful");
+    </script>
+    <?php
+} else {?>
+    <script>
+        console.log("Connection Error");
+    </script>
+    <?php
+    echo "Connection Error";
+}
 
-	if(!$con) {
-		echo "Connection to Database failed";
-	}
 ?>

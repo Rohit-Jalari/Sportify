@@ -1,3 +1,7 @@
+<?php
+session_start();
+unset($_SESSION['error']);
+?>
 <!DOCTYPE html>
 <html>
 <html
@@ -13,6 +17,20 @@ data-template="vertical-menu-template-free"
   <!-- Page CSS -->
   <!-- Page -->
   <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
+  <style>
+.Input.error  input,.Input.error span{
+	border: 2px solid #ff6e63;
+}
+.Input > small{
+  /* display: block; */
+	color: red;
+	display: none;
+	font-size: 14px;
+}
+.Input.error small{
+	display: block;
+}
+</style>
 </head>
 
 <body>
@@ -20,58 +38,38 @@ data-template="vertical-menu-template-free"
     require_once('dbCon.php');
 
     //checks if Login buttons is clicked or not
-    if(isset($_POST['login'])) {
-      ?>
-      <script>
-        console.log("set");
-      </script>
-      <?php
+    if(isset($_POST['login']) && $_POST['login']=='login') {
 
       //retrieve values from form
       $email = htmlspecialchars($_POST['email']);
       $password = htmlspecialchars($_POST['password']);
 
-      //query to search email in user
-      $emailQuery = " SELECT * FROM `user` WHERE `email` = '$email' ";
+      //database
+      $userCollection = $databaseCon->Users;
+      $emailFilter = ["email" => $email];
 
-      //query search for email in database
-      $emailSearch = mysqli_query($con,$emailQuery);
+      $emailMatch = $userCollection->countDocuments($emailFilter);
 
-    if(mysqli_num_rows($emailSearch)) {
+      if($emailMatch == 1) {
+        $userRecord = $userCollection->findOne($emailFilter);
+        $dbpassword = $userRecord['password'];
 
-        //returns associative array with data of respective row of email in DB
-        $recordPointer = mysqli_fetch_assoc($emailSearch);
-        //retrives password from database through associative array
-        $dbPassword = $recordPointer['password'];
-
-        //validates entered password and hashed password in database
-        //password_verify($password, $dbPassword)
-        if(password_verify($password, $dbPassword)) {
-
-          //sets session
+        if(password_verify($password, $dbpassword)) {
           $_SESSION['loggedIn'] = true;
-          $_SESSION['userFirstName'] = $recordPointer['first_name'];
-          $_SESSION['userLastName'] = $recordPointer['last_name'];
-          $_SESSION['userEmail'] = $recordPointer['email'];
-          $_SESSION['userId'] = $recordPointer['user_id'];
-          $_SESSION['profilePath'] = $recordPointer['profile_path'];
-        ?>
+          $_SESSION['userRecord'] = $userRecord; ?>
           <script>
             location.replace("index.php");
           </script>
         <?php } else {
-
-          $_SESSION['error'] = "Incorrect Password !!!";
+          // echo "*Password does not matches ";
+          $_SESSION['error'] = "*Password does not Matches";
         }
-      } else {?>        <script>
-            alert("Account doesnot exist");
-          </script>
-          <?php
-        $_SESSION['error'] = "Account Doesn't Exists !!!";
-      } 
-  } ?>
-
-
+      } else {
+        // echo "*Account does not exists";
+        $_SESSION['error'] = "*Account does not exists";
+      }
+    }
+  ?>
 
   <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
@@ -91,38 +89,52 @@ data-template="vertical-menu-template-free"
             </div>
             <!-- /Logo -->
             <h4 class="mb-2">Welcome to <span class="fw-bold mark">Sportify !</span> 👋</h4>
-            <p class="mb-4">Please sign-in to your account and start the adventure</p>
+            <p class="mb-4">Please sign-in to your account</p>
 
             <form id="formAuthentication" class="mb-3" action="" method="POST">
-              <div class="mb-3">
-                <label for="email" class="form-label">Email or Username</label>
+              <div class="mb-3 Input">
+                <label for="email" class="form-label">Email</label>
                 <input
                 type="text"
-                class="form-control"
+                class="form-control 
+                <?php if(isset($_SESSION['error']) && $_SESSION['error']=="*Account does not exists") { 
+                  echo " is-invalid";}?>
+                  "
                 id="email"
-                name="email-username"
+                name="email"
                 placeholder="Enter your email or username"
                 autofocus
-                />
+                value= <?php if (isset($_POST['email'])){ echo $_POST['email']; }?>
+                >
+                <small>Error Message</small>
+                <?php if(isset($_SESSION['error']) && $_SESSION['error']=="*Account does not exists" ) 
+                {echo "<small style='display:block';>{$_SESSION['error']}</small>";} ?>
               </div>
-              <div class="mb-3 form-password-toggle">
+              <div class="mb-3 form-password-toggle Input">
                 <div class="d-flex justify-content-between">
                   <label class="form-label" for="password">Password</label>
                   <a href="forgotPassword.php">
-                    <small>Forgot Password?</small>
+                    <h7>Forgot Password?</h7>
                   </a>
                 </div>
                 <div class="input-group input-group-merge">
                   <input
                   type="password"
                   id="password"
-                  class="form-control"
+                  class="form-control 
+                  <?php if(isset($_SESSION['error']) && $_SESSION['error']=="*Password does not Matches") { 
+                    echo " is-invalid";}?>
+                    "
                   name="password"
                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                   aria-describedby="password"
-                  />
+                  value= <?php if (isset($_POST['password'])){ echo $_POST['password']; }?>
+                  >
                   <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                 </div>
+                <small>Error Message</small>
+                <?php if(isset($_SESSION['error']) && $_SESSION['error']=="*Password does not Matches" ) 
+                {echo "<small style='display:block';>{$_SESSION['error']}</small>";} ?>
               </div>
               <div class="mb-3">
                 <div class="form-check">
@@ -131,7 +143,7 @@ data-template="vertical-menu-template-free"
                 </div>
               </div>
               <div class="mb-3">
-                <button class="btn btn-primary d-grid w-100" name="login">Sign in</button>
+                <button class="btn btn-primary d-grid w-100" name="login" value="login">Sign in</button>
               </div>
             </form>
 
@@ -158,5 +170,6 @@ data-template="vertical-menu-template-free"
       window.history.replaceState( null, null, window.location.href );
     }
 </script>
+<script type="text/javascript" src="loginValidation.js"></script>
 </html>
 
