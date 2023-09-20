@@ -14,7 +14,7 @@
 					<?php if(!$loggedIn) { ?>
 					<a class="nav-link me-1" href="login.php"><i class="tf-icons navbar-icon bx bx-user"></i>Login</a>
 					<a class="nav-link me-1" href="register.php"><i class="tf-icons navbar-icon bx bx-user-plus me-1" style="font-size: 1.5rem;"></i>Register</a>
-					<?php } 
+					<?php }
 					if($loggedIn) {?>
 					<a class="nav-link me-1" href="logout.php"><i class="tf-icons navbar-icon bx bx-lock-open-alt"></i> Logout</a>
 					<?php } ?>
