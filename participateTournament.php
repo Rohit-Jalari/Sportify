@@ -8,11 +8,11 @@ lang="en"
 class="light-style layout-menu-fixed"
 dir="ltr"
 data-theme="theme-default"
-data-assets-path="../sneat/assets/"
 data-template="vertical-menu-template-free"
 >
 <head>
 	<?php include('head.php'); ?>
+	<link rel="stylesheet" href="assets/vendor/css/rtl/core-dark.css">
 </head>
 
 <body>
@@ -38,7 +38,7 @@ data-template="vertical-menu-template-free"
 <?php include('script.php')?>
 <?php if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != true ) {?>
 	<script>
-		var myModal = new bootstrap.Modal(document.getElementById('modalToggle'));
+		var myModal = new bootstrap.Modal(document.getElementById('loginModalToggle'));
 		window.addEventListener('load',()=>{
 			myModal.show();
 		});

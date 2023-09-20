@@ -12,13 +12,105 @@ require('session.php');
 	<link rel="stylesheet" href="assets/vendor/css/rtl/core-dark.css">
 	<link rel="stylesheet" href="assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css">
 	<style>
-		.row input:focus{
+		.row input:focus {
 			border-color: #696cff;
 		}
 	</style>
+	<script src="assets/vendor/js/bootstrap.js"></script>
 </head>
 
 <body>
+	<?php
+	require_once('dbCon.php');
+	include('errorModal.php');
+
+	// print_r($userRecord);
+	
+	//checks if Login buttons is clicked or not
+	if (isset($_POST['submit']) && $_POST['submit'] == 'submit') {
+		$tournamentName = htmlspecialchars($_POST['tournamentName']);
+		$tournamentCreator = $userRecord['userID'];
+		$startDate = htmlspecialchars($_POST['startDate']);
+		$endDate = htmlspecialchars($_POST['endDate']);
+		$location = htmlspecialchars($_POST['location']);
+		$description = htmlspecialchars($_POST['description']);
+		$emailRestriction = htmlspecialchars($_POST['emailRestriction']);
+		$emailRestriction = ($emailRestriction != '') ? $emailRestriction : 'null';
+		//collection
+		$tournamentCollection = $databaseCon->Tournaments;
+
+		do {
+			$tournamentID = generateID(12);
+			$tournamentIDFilter = ['tournamentID' => $tournamentID];
+			$tournamentIDMatch = $tournamentCollection->countDocuments($tournamentIDFilter);
+		} while ($tournamentIDMatch != 0);
+
+		// echo $tournamentName. '  '. $tournamentCreator. '  '. $startDate.'  '. $endDate . '  '. $emailRestriction ;
+		$tournamentDetail = [
+			'tournamentName' => $tournamentName,
+			'tournamentID' => $tournamentID,
+			'tournamentCreator' => $tournamentCreator,
+			'startDate' => $startDate,
+			'endDate' => $endDate,
+			'location' => $location,
+			'description' => $description,
+			'emailRestriction' => $emailRestriction
+		];
+		$session = $mongoClient->startSession();
+
+		try {
+			$session->startTransaction();
+
+			// Insert operation
+			$insertResult = $tournamentCollection->insertOne($tournamentDetail);
+
+			if ($insertResult->getInsertedCount() <= 0) {
+				throw new Exception("Insert failed");
+			}
+
+			//collection
+			$userCollection = $databaseCon->Users;
+			$updateFilter = ['userID' => $tournamentCreator];
+			$update = ['$set' => ['tournamentID' => $tournamentID]];
+			$updateResult = $userCollection->updateOne($updateFilter, $update);
+
+			if ($updateResult->getModifiedCount() <= 0) {
+				throw new Exception("Update failed");
+			}
+			
+			$_SESSION['tournamentDetail'] = $tournamentDetail;
+			$session->commitTransaction();
+			?>
+			<script>
+				location.replace("tournamentIndex.php");
+			</script>
+			<?php
+		} catch (Exception $e) {
+			
+			$session->abortTransaction();
+			?>
+			<script>
+				let myModal = new bootstrap.Modal(document.getElementById('errorModalToggle'));
+				myModal.show();
+			</script>
+			<?php
+		} finally {
+			$session->endSession();
+		}
+	}
+	function generateID($length)
+	{
+		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$password = '';
+
+		for ($i = 0; $i < $length; $i++) {
+			$randomIndex = mt_rand(0, strlen($characters) - 1);
+			$password .= $characters[$randomIndex];
+		}
+		return '#' . str_shuffle($password);
+	}
+	?>
+
 	<!-- Layout wrapper -->
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
@@ -30,6 +122,8 @@ require('session.php');
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
+						<!-- Modal if Not logged in-->
+						<?php include('loginModal.php') ?>
 						<div class="row">
 							<div class="col-x1">
 								<div class="card mb-4">
@@ -38,12 +132,12 @@ require('session.php');
 									</div>
 
 									<div class="card-body">
-										<form>
+										<form id="formTournament" class="mb-3" action="" method="POST">
 											<div class="row">
 												<div class="col mb-3">
 													<label for="tournamentName" class="form-label">Name</label>
 													<input type="text" id="tournamentName" class="form-control"
-														placeholder="Enter Name" name="tournamentName">
+														placeholder="Enter Name" name="tournamentName" required>
 												</div>
 											</div>
 											<div class="row g-2">
@@ -55,24 +149,24 @@ require('session.php');
 														<div class="input-group input-daterange"
 															id="bs-datepicker-daterange">
 															<input id="date" type="text" placeholder="YYYY/MM/DD"
-																class="form-control" name="startDate">
+																class="form-control" name="startDate" required>
 															<span class="input-group-text">to</span>
 															<input type="text" placeholder="YYYY/MM/DD"
-																class="form-control" name="endDate">
+																class="form-control" name="endDate" required>
 														</div>
 													</div>
 												</div>
 												<div class="cpl mb-3">
 													<label for="location" class="form-label ">Location</label>
 													<input type="text" id="location" class="form-control"
-														placeholder="Enter location" name="location">
+														placeholder="Enter location" name="location" required>
 												</div>
 												<div class="cpl mb-3">
 													<label for="description" class="form-label">Description</label>
 													<textarea id="description" class="form-control"
-														placeholder="Enter Description of the Tournament" name="description"
-														rows="4"
-														style="color:white;"></textarea>
+														placeholder="Enter Description of the Tournament"
+														name="description" rows="4" style="color:white;"
+														required></textarea>
 												</div>
 
 												<div class="d-flex">
@@ -93,17 +187,14 @@ require('session.php');
 														<label for="emailRestriction" class="form-label">Email-Domain
 															Restriction
 														</label>
-														<input type="email" class="form-control" id="emailRestriction"
-															placeholder="name@example.com" name="emailRestriction">
+														<input type="text" class="form-control" id="emailRestriction"
+															placeholder="@example.com" name="emailRestriction"
+															pattern="^@[a-zA-Z0-9]*\.[\w\d]+[\.\w\d]*">
 													</div>
 												</div>
 											</div>
-											<div class="cpl mb-3">
-												<div class="button">
-													<button type="button" class="btn btn-primary"
-														name="submit">Submit</button>
-												</div>
-											</div>
+											<button id="formSubmit" class="btn btn-primary" name="submit"
+												value="submit">Submit</button>
 										</form>
 									</div>
 								</div>
@@ -113,25 +204,51 @@ require('session.php');
 				</div>
 			</div>
 		</div>
+		<!--Overlay -->
+		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
-	</div>
-	<!--Overlay -->
-	<div class="layout-overlay layout-menu-toggle"></div>
-	</div>
-	<script>
-		document.getElementById('advanceSetting').addEventListener('change', function () {
-			var emailRestriction = document.querySelector('.email-restriction');
-			emailRestriction.style.height = this.checked ? '5rem' : '0';
-		});		
-	</script>
-	<?php include('script.php') ?>
-	<script src="assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-	<script>
-		$("#bs-datepicker-daterange").datepicker(
-			{ format: "yyyy/mm/dd" }
-		);
-	</script>
 </body>
 <?php include('script.php') ?>
+
+<?php if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != true) { ?>
+	<script>
+		var myModal = new bootstrap.Modal(document.getElementById('loginModalToggle'));
+		window.addEventListener('load', () => {
+			myModal.show();
+		});
+	</script>
+<?php } ?>
+<script type="text/javascript">
+	document.getElementById('advanceSetting').addEventListener('change', function () {
+		let advanceSetting = document.querySelector('#advanceSetting');
+		var emailRestriction = document.querySelector('.email-restriction');
+		var emailRestrictionField = document.querySelector('#emailRestriction');
+		if (advanceSetting.checked) {
+			emailRestriction.style.height = '5rem';
+			emailRestrictionField.setAttribute('required', '');
+		} else {
+			emailRestriction.style.height = '0';
+			emailRestrictionField.removeAttribute('required');
+		}
+	});		
+</script>
+<script src="assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	$("#bs-datepicker-daterange").datepicker(
+		{ format: "yyyy/mm/dd" }
+	);
+</script>
+<script type="text/javascript">
+	document.getElementById("formSubmit").addEventListener('click', () => {
+		console.log('clicked');
+	});
+</script>
+<script type="text/javascript">
+	//snippet from stackoverflow to prevent auto submission of form after refresh
+	if (window.history.replaceState) {
+		window.history.replaceState(null, null, window.location.href);
+	}
+</script>
+
 
 </html>

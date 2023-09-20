@@ -17,5 +17,4 @@ if ($mongoClient) {
     <?php
     echo "Connection Error";
 }
-
 ?>

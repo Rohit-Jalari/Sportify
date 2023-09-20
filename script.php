@@ -17,14 +17,9 @@
 <script src="assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
 <script src="assets/vendor/libs/select2/select2.js"></script>
 <script src="assets/vendor/libs/jquery/jquery.js"></script>
-<
 
-<!-- Main JS -->
 <script src="assets/js/main.js"></script>
 
-<!-- Page JS -->
-
-<!-- Place this tag in your head or just before your close body tag. -->
 <script>
 	window.onscroll = function() {myFunction()};
 

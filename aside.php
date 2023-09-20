@@ -21,12 +21,13 @@
 		<li class="menu-header small text-uppercase">
 			<span class="menu-header-text">Tournament</span>
 		</li>
+		<?php if($userRecord == null || $userRecord['tournamentID'] == null) {?>
 		<li class="menu-item">
 			<a href="createTournament.php" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-dock-top"></i>
 				<div data-i18n="Create">Create</div>
 			</a>
-		</li>
+		</li> <?php } ?>
 		<li class="menu-item">
 			<a href="participateTournament.php" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
@@ -52,15 +53,17 @@
 			</ul>
 		</li>
 
+		<?php if($userRecord != null) {?>
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Created Tournament</span></li>
 
 		<!-- Created Tournament-->
 		<li class="menu-item">
 			<a href="javascript:void(0);" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-detail"></i>
-				<div data-i18n="Messages">GCES Sport Meet 2024</div>
+				<div data-i18n="Messages"><?=($databaseCon->Tournaments->findOne(['tournamentID'=>$userRecord['tournamentID']])['tournamentName']);?></div>
 			</a>
 		</li>
+		<?php } ?>
 
 		<!-- Joined Tournament-->
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Joined Tournament</span></li>

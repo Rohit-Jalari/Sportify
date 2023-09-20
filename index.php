@@ -14,8 +14,11 @@ data-template="vertical-menu-template-free"
 <head>
 	<?php include('head.php');?>
 </head>
-
 <body>
+	<?php
+	// print_r($userRecord);
+	// print_r($tournamentDetail);
+	?>
 	<!-- Layout wrapper -->
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
