@@ -50,10 +50,10 @@ require('session.php');
 														Enter Tournament ID
 													</h6>
 												</label>
-												<input type="text" id="input"
+												<input type="text" id="input" onfocus="addPrefix(this)"
+													onblur="removePrefix(this)"
 													class="form-control text-center text-white delimiter-mask"
-													placeholder="Example : #GW7k92LCnZ8i" name="tournamentName"
-													required>
+													placeholder="Example : GW7k92LCnZ8i" name="tournamentName" required>
 											</div>
 										</div>
 										<div class="row">
@@ -87,11 +87,29 @@ require('session.php');
 	var cleave = new Cleave(".delimiter-mask", {
 		delimiter: " - ",
 		blocks: [5, 4, 4],
-		uppercase: true
+		uppercase: true,
+		numericOnly: false,
 	});
-	window.addEventListener('load',() => {
-		inputLimitLoad('target','input',13);
-		
+	function addPrefix(e) {
+		if (!e.value.startsWith('#')) {
+			cleave.destroy();
+			cleave = new Cleave(".delimiter-mask", {
+				prefix: '#',
+				delimiter: " - ",
+				blocks: [5, 4, 4],
+				uppercase: true,
+				numericOnly: false,
+			});
+		}
+	}
+	function removePrefix(e) {
+		if (e.value == '#') {
+			e.value = '';
+		}
+	}
+
+	window.addEventListener('load', () => {
+		inputLimitLoad('target', 'input', 13);
 	});
 </script>
 

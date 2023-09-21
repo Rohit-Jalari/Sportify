@@ -212,9 +212,9 @@ require('session.php');
 
 <?php if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != true) { ?>
 	<script>
-		var myModal = new bootstrap.Modal(document.getElementById('loginModalToggle'));
+		var myModal1 = new bootstrap.Modal(document.getElementById('loginModalToggle'));
 		window.addEventListener('load', () => {
-			myModal.show();
+			myModal1.show();
 		});
 	</script>
 <?php } ?>
