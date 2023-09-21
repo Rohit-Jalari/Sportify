@@ -1,5 +1,5 @@
 <?php
-require('session.php');
+require('../config/session.php');
 ?>
 
 <!DOCTYPE html>
@@ -8,21 +8,21 @@ require('session.php');
 	data-template="vertical-menu-template-free">
 
 <head>
-	<?php include('head.php'); ?>
-	<link rel="stylesheet" href="assets/vendor/css/rtl/core-dark.css">
-	<link rel="stylesheet" href="assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css">
+	<?php include('../includes/head.php'); ?>
+	<link rel="stylesheet" href="../assets/vendor/css/rtl/core-dark.css">
+	<link rel="stylesheet" href="../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css">
 	<style>
 		.row input:focus {
 			border-color: #696cff;
 		}
 	</style>
-	<script src="assets/vendor/js/bootstrap.js"></script>
+	<script src="../assets/vendor/js/bootstrap.js"></script>
 </head>
 
 <body>
 	<?php
-	require_once('dbCon.php');
-	include('errorModal.php');
+	require_once('../config/dbCon.php');
+	include('../includes/errorModal.php');
 
 	// print_r($userRecord);
 	
@@ -115,15 +115,15 @@ require('session.php');
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
 			<!-- Menu -->
-			<?php include('aside.php') ?>
+			<?php include('../includes/aside.php') ?>
 
 			<div class="layout-page">
-				<?php include('navbar.php') ?>
+				<?php include('../includes/navbar.php') ?>
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<!-- Modal if Not logged in-->
-						<?php include('loginModal.php') ?>
+						<?php include('../includes/loginModal.php') ?>
 						<div class="row">
 							<div class="col-x1">
 								<div class="card mb-4">
@@ -208,7 +208,7 @@ require('session.php');
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 </body>
-<?php include('script.php') ?>
+<?php include('../includes/script.php') ?>
 
 <?php if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != true) { ?>
 	<script>
@@ -232,7 +232,7 @@ require('session.php');
 		}
 	});		
 </script>
-<script src="assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
 	$("#bs-datepicker-daterange").datepicker(
 		{ format: "yyyy/mm/dd" }

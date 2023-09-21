@@ -1,4 +1,4 @@
 <?php
-    include('session.php');
+    include('../config/session.php');
     print_r($tournamentDetail);
 ?>

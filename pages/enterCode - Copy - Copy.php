@@ -5,13 +5,12 @@ lang="en"
 class="light-style layout-menu-fixed"
 dir="ltr"
 data-theme="theme-default"
-data-assets-path="assets/"
 data-template="vertical-menu-template-free"
 >
 <head>
-	<?php include('head.php'); ?>
-	<link rel="stylesheet" type="text/css" href="assets/vendor/libs/bs-stepper/bs-stepper.css">
-	<script type="text/javascript" src="assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
+	<?php include('../includes/head.php'); ?>
+	<link rel="stylesheet" type="text/css" href="../assets/vendor/libs/bs-stepper/bs-stepper.css">
+	<script type="text/javascript" src="../assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
 </head>
 
 <body>
@@ -19,10 +18,10 @@ data-template="vertical-menu-template-free"
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
 			<!-- Menu -->
-			<?php include('aside.php')?>
+			<?php include('../includes/aside.php')?>
 
 			<div class="layout-page">
-				<?php include('navbar.php')?>
+				<?php include('../includes/navbar.php')?>
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
@@ -206,7 +205,7 @@ data-template="vertical-menu-template-free"
 		</div>
 	</div>
 </body>
-<?php include('script.php')?>
+<?php include('../includes/script.php')?>
 <script type="text/javascript">	
 	const select2 = $('.select2'),
 	selectPicker = $('.selectpicker');

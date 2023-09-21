@@ -9,14 +9,13 @@ lang="en"
 class="light-style layout-menu-fixed"
 dir="ltr"
 data-theme="theme-default"
-data-assets-path="../sneat/assets/"
 data-template="vertical-menu-template-free"
 >
 <head>
-  <?php include('head.php'); ?>
+  <?php include('../includes/head.php'); ?>
   <!-- Page CSS -->
   <!-- Page -->
-  <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
+  <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
   <style>
 .Input.error  input,.Input.error span{
 	border: 2px solid #ff6e63;
@@ -35,7 +34,7 @@ data-template="vertical-menu-template-free"
 
 <body>
   <?php 
-    require_once('dbCon.php');
+    require_once('../config/dbCon.php');
 
     //checks if Login buttons is clicked or not
     if(isset($_POST['login']) && $_POST['login']=='login') {
@@ -163,13 +162,13 @@ data-template="vertical-menu-template-free"
     </div>
   </div>
 </body>
-<?php include('script.php')?>
+<?php include('../includes/script.php')?>
 <script type="text/javascript">
   //snippet from stackoverflow to prevent auto submission of form after refresh
   if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );
     }
 </script>
-<script type="text/javascript" src="loginValidation.js"></script>
+<script type="text/javascript" src="../scripts/loginValidation.js"></script>
 </html>
 

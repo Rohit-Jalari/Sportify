@@ -4,14 +4,14 @@ unset($_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/"
-  data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
+ data-template="vertical-menu-template-free">
 
 <head>
-  <?php include('head.php'); ?>
+  <?php include('../includes/head.php'); ?>
   <!-- Page CSS -->
   <!-- Page -->
-  <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
+  <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
   <style>
     .Input.error input,
     .Input.error span {
@@ -33,7 +33,7 @@ unset($_SESSION['error']);
 <body>
   <?php
   //connect to database
-  require_once("dbCon.php");
+  require_once("../config/dbCon.php");
 
 
   //checks if signUp button is clicked or not
@@ -194,8 +194,8 @@ unset($_SESSION['error']);
     </div>
   </div>
 </body>
-<?php include('script.php') ?>
-<script type="text/javascript" src="signUpValidation.js"></script>
+<?php include('../includes/script.php') ?>
+<script type="text/javascript" src="../scripts/signUpValidation.js"></script>
 <script type="text/javascript">
   //snippet from stackoverflow to prevent auto submission of form after refresh
   if (window.history.replaceState) {

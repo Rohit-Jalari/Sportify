@@ -5,14 +5,13 @@ lang="en"
 class="light-style layout-menu-fixed"
 dir="ltr"
 data-theme="theme-default"
-data-assets-path="../sneat/assets/"
 data-template="vertical-menu-template-free"
 >
 <head>
-	<?php include('head.php'); ?>
+	<?php include('../includes/head.php'); ?>
 	<!-- Page CSS -->
 	<!-- Page -->
-	<link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
+	<link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
 </head>
 
 <body>
@@ -62,6 +61,6 @@ data-template="vertical-menu-template-free"
 		</div>
 	</div>
 </body>
-<?php include('script.php')?>
+<?php include('../includes/script.php')?>
 </html>
 
