@@ -1,5 +1,5 @@
 <?php
-require '../vendorMongo/autoload.php';
+require '../vendor/vendorMongo/autoload.php';
 require_once('dbCon.php');
 session_start();
 if(isset($_SESSION['loggedIn'])) {

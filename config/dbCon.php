@@ -1,5 +1,5 @@
 <?php
-require '../vendorMongo/autoload.php';
+require '../vendor/vendorMongo/autoload.php';
 $databaseName = 'Sportify';
 
 $mongoClient = new MongoDB\Client;
