@@ -53,7 +53,7 @@
 			</ul>
 		</li>
 
-		<?php if($userRecord != null && userRecord['tournamentID']) {?>
+		<?php if($userRecord != null && $userRecord['tournamentID'] != null) {?>
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Created Tournament</span></li>
 
 		<!-- Created Tournament-->
