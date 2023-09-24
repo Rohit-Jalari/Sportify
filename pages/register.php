@@ -72,7 +72,8 @@ unset($_SESSION['error']);
         "lastname" => $lastname,
         "email" => $email,
         "password" => $hPassword,
-        "tournamentID" => null
+        "tournamentID" => null,
+        "participatedTournaments" => null
       ];
 
       $insertResult = $userCollection->insertOne($userData);

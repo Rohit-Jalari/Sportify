@@ -67,6 +67,7 @@
 			</li>
 		<?php } ?>
 
+		<?php if ($userRecord != null && $userRecord['tournamentID'] != null) { ?>
 		<!-- Joined Tournament-->
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Joined Tournament</span></li>
 		<li class="menu-item">
@@ -75,9 +76,10 @@
 				<div data-i18n="Messages">4-A Side Football</div>
 			</a>
 		</li>
+		<?php } ?>
 
 
-		<!-- Social Networking-->
+		<!-- Social Networking
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Social Networking</span></li>
 
 		<li class="menu-item">
@@ -103,7 +105,7 @@
 					</a>
 				</li>
 			</ul>
-		</li>
+		</li> -->
 
 		<!-- Profile -->
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Profile</span></li>
