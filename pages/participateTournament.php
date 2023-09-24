@@ -81,36 +81,9 @@ require('../config/session.php');
 		});
 	</script>
 <?php } ?>
-<script type="text/javascript" src="../assets/vendor/libs/cleave/Cleave.min.js"></script>
-<script type="text/javascript" src="../scripts/inputLimitLoad.js"></script>
-<script type="text/javascript">
-	var cleave = new Cleave(".delimiter-mask", {
-		delimiter: " - ",
-		blocks: [5, 4, 4],
-		uppercase: true,
-		numericOnly: false,
-	});
-	function addPrefix(e) {
-		if (!e.value.startsWith('#')) {
-			cleave.destroy();
-			cleave = new Cleave(".delimiter-mask", {
-				prefix: '#',
-				delimiter: " - ",
-				blocks: [5, 4, 4],
-				uppercase: true,
-				numericOnly: false,
-			});
-		}
-	}
-	function removePrefix(e) {
-		if (e.value == '#') {
-			e.value = '';
-		}
-	}
 
-	window.addEventListener('load', () => {
-		inputLimitLoad('target', 'input', 13);
-	});
-</script>
+<script type="text/javascript" src="../scripts/inputLimitLoad.js"></script>
+<script type="text/javascript" src="../assets/vendor/libs/cleave/Cleave.min.js"></script>
+<script type="text/javascript" src="../scripts/participateInput.js"></script>
 
 </html>
