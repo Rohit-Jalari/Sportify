@@ -3850,7 +3850,6 @@ textarea.form-control-lg {
 }
 
 .card {
-  min-height: 37rem;
   position: relative;
   min-width: 0;
   word-wrap: break-word;

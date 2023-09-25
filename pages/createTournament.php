@@ -35,7 +35,7 @@ require('../config/session.php');
 		$location = htmlspecialchars($_POST['location']);
 		$description = htmlspecialchars($_POST['description']);
 		$emailRestriction = htmlspecialchars($_POST['emailRestriction']);
-		$emailRestriction = ($emailRestriction != '') ? $emailRestriction : 'null';
+		$emailRestriction = ($emailRestriction != '') ? $emailRestriction : null;
 		//collection
 		$tournamentCollection = $databaseCon->Tournaments;
 
@@ -68,17 +68,24 @@ require('../config/session.php');
 				throw new Exception("Insert failed");
 			}
 
-			//collection
+			//user collection
 			$userCollection = $databaseCon->Users;
+			//upadate tournament-created by user info
 			$updateFilter = ['userID' => $tournamentCreator];
 			$update = ['$set' => ['tournamentID' => $tournamentID]];
 			$updateResult = $userCollection->updateOne($updateFilter, $update);
+			$_SESSION['userRecord'] = $userCollection->findOne($updateFilter);
 
 			if ($updateResult->getModifiedCount() <= 0) {
 				throw new Exception("Update failed");
 			}
 			
 			$_SESSION['tournamentDetail'] = $tournamentDetail;
+			$participantData = [
+				"tournamentID" => $tournamentID ,
+				"userID" => null
+			];
+			$participantInsert = $databaseCon->Participants->insertOne($participantData);
 			$session->commitTransaction();
 			?>
 			<script>

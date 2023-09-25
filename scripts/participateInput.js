@@ -1,5 +1,4 @@
 
-
 var cleave = new Cleave(".delimiter-mask", {
     delimiter: " - ",
     blocks: [5, 4, 4],
@@ -27,5 +26,6 @@ function removePrefix(e) {
 }
 
 window.addEventListener('load', () => {
+    // $(document).ajaxStop($.unblockUI);
     inputLimitLoad('target', 'input', 13);
 });

@@ -23,7 +23,7 @@ require('../config/session.php');
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<?php
-						print_r($userRecord);
+						// print_r($_SESSION['userRecord']);
 						// print_r($tournamentDetail);
 						?>
 					</div>

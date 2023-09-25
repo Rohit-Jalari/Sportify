@@ -53,10 +53,10 @@
 			</ul>
 		</li>
 
+		<!-- Created Tournament-->
 		<?php if ($userRecord != null && $userRecord['tournamentID'] != null) { ?>
 			<li class="menu-header small text-uppercase"><span class="menu-header-text">Created Tournament</span></li>
-
-			<!-- Created Tournament-->
+			<!-- Tournament List item -->
 			<li class="menu-item">
 				<a href="javascript:void(0);" class="menu-link">
 					<i class="menu-icon tf-icons bx bx-detail"></i>
@@ -67,16 +67,23 @@
 			</li>
 		<?php } ?>
 
-		<?php if ($userRecord != null && $userRecord['tournamentID'] != null) { ?>
 		<!-- Joined Tournament-->
-		<li class="menu-header small text-uppercase"><span class="menu-header-text">Joined Tournament</span></li>
-		<li class="menu-item">
-			<a href="javascript:void(0);" class="menu-link">
-				<i class="menu-icon tf-icons bx bx-detail"></i>
-				<div data-i18n="Messages">4-A Side Football</div>
-			</a>
-		</li>
-		<?php } ?>
+		<?php
+		if ($userRecord != null && $userRecord['participatedTournaments'] != null) { ?>
+			<li class="menu-header small text-uppercase"><span class="menu-header-text">Joined Tournament</span></li>
+
+			<?php foreach ($userRecord['participatedTournaments'] as $listItem) { ?>
+				<!-- Participated Tournament List Item -->
+				<li class="menu-item">
+					<a href="javascript:void(0);" class="menu-link">
+						<i class="menu-icon tf-icons bx bx-detail"></i>
+						<div data-i18n="Messages">
+							<?= $listItem; ?>
+						</div>
+					</a>
+				</li>
+			<?php }
+		} ?>
 
 
 		<!-- Social Networking

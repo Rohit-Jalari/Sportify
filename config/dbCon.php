@@ -5,11 +5,7 @@ $databaseName = 'Sportify';
 $mongoClient = new MongoDB\Client;
 if ($mongoClient) {
     $databaseCon = $mongoClient->$databaseName;
-    ?>
-    <script>
-        console.log("Connection Succesful");
-    </script>
-    <?php
+    
 } else {?>
     <script>
         console.log("Connection Error");

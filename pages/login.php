@@ -54,7 +54,8 @@ unset($_SESSION['error']);
 
       if (password_verify($password, $dbpassword)) {
         $_SESSION['loggedIn'] = true;
-        $_SESSION['userRecord'] = $userRecord; ?>
+        $_SESSION['userRecord'] = $userRecord;
+        ?>
         <script>
           location.replace("index.php");
         </script>

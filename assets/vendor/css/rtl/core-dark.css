@@ -21705,10 +21705,6 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   background: rgba(255, 255, 255, .8) !important
 }
 
-.layout-container {
-  min-height: 100vh
-}
-
 .layout-wrapper,
 .layout-container {
   width: 100%;

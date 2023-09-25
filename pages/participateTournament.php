@@ -37,7 +37,7 @@ require('../config/session.php');
 						<?php include('../includes/loginModal.php') ?>
 						<div class="row">
 							<div class="col-x1">
-								<div class="card mb-4">
+								<div class="card">
 									<div class="card-header d-flex justify-content-between align-items-center">
 										<h1 class="mb-0">Tournament Participation</h1>
 									</div>
@@ -57,8 +57,22 @@ require('../config/session.php');
 											</div>
 										</div>
 										<div class="row">
-											<div class="col mb-3">
+											<div class="col">
 												<div id="target">
+													<!-- <div class="card text-center" style="border: 1px solid #444564;">
+														<div class="card-header">
+															Featured
+														</div>
+														<div class="card-body">
+															<h5 class="card-title">Special title treatment</h5>
+															<p class="card-text">With supporting text below as a natural
+																lead-in to additional content.</p>
+															<a href="#" class="btn btn-primary">Go somewhere</a>
+														</div>
+														<div class="card-footer text-muted">
+															2 days ago
+														</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -70,6 +84,8 @@ require('../config/session.php');
 				</div>
 			</div>
 		</div>
+		<!--Overlay -->
+		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 </body>
 <?php include('../includes/script.php') ?>
@@ -84,6 +100,7 @@ require('../config/session.php');
 
 <script type="text/javascript" src="../scripts/inputLimitLoad.js"></script>
 <script type="text/javascript" src="../assets/vendor/libs/cleave/Cleave.min.js"></script>
+<script type="text/javascript" src="../assets/vendor/libs/block-ui/block-ui.js"></script>
 <script type="text/javascript" src="../scripts/participateInput.js"></script>
 
 </html>
