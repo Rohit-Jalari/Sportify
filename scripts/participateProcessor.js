@@ -1,4 +1,4 @@
-function inputLimitLoad(target, input, max) {
+function participateProcessor(target, input, max) {
 	let inputElement = document.getElementById(input);
 	let targetElement = document.getElementById(target);
 
@@ -7,13 +7,16 @@ function inputLimitLoad(target, input, max) {
 		if (inputValue.length == max) {
 			inputElement.blur();
 			targetElement.style.minHeight = '18rem';
+			event.target.disabled = true;
 			LoadingUI();
 			AJAXProcessor(inputValue, target);
+			event.target.disabled = false;
 		}
 	});
 	function LoadingUI() {
 		$("#target").block({
 			message: '<div class="spinner-border text-primary" role="status"></div>',
+			timeout: 2000,
 			css: {
 				backgroundColor: "transparent",
 				border: "0"
@@ -31,12 +34,13 @@ function inputLimitLoad(target, input, max) {
 		$.ajax({
 			type: 'POST',
 			url: '../process/searchTournament.php',
-			data: JSON.stringify(requestData), 
-			contentType: 'application/json', 
-			dataType: 'json', 
+			data: JSON.stringify(requestData),
+			contentType: 'application/json',
+			dataType: 'json',
 			success: function (data) {
 				updateInformation(data, target);
 				$("#target").unblock();
+				modalProcess();
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				console.error('Error:', textStatus, errorThrown);
@@ -65,20 +69,31 @@ function inputLimitLoad(target, input, max) {
 
 		} else {
 			// $(`#${target}`).find('.card-title')[0].text(data.tournamentName); //For loading spinner check
-			let emailRestriction = (data.emailRestriction == null) ? 'None': data.emailRestriction;
+			let emailRestriction = (data.emailRestriction == null) ? 'None' : data.emailRestriction;
 			$(`#${target}`).html(`
 			<div class="card text-center" style="border: 1px solid #444564;">
 				<div class="card-body">
 					<h3 class="card-title">${data.tournamentName}</h3>
 					<p class="card-text" style="text-align:justify;display:flex;justify-content:center;">${data.description}</p>
-					<p class="card-text" style="text-align:justify;display:flex;justify-content:center;">Email-Restriction  :  ${emailRestriction}</p>
-					<a href="#" class="btn btn-primary">Participate</a>
+					<p class="card-text" style="text-align:justify;display:flex;justify-content:center;">Email-Restriction  :  <span id="tournamentEmailRestriction" class="pl-4">${emailRestriction}</span></p>
+					<button id='participateModal' class="btn btn-primary">Participate</button>
 				</div>
-				<div class="card-footer text-muted">2 days ago</div>
 			</div>
+			<script type="text/javascript">
+    		
+			</script>
 			`);
 		}
-		// $(`#${target}`).text(data.tournamentName);
-
+	}
+	function modalProcess() {
+		var mailModal = new bootstrap.Modal(document.getElementById('emailModalToggle'));
+		let participateModal = document.getElementById('participateModal');
+		participateModal.addEventListener('click', () => {
+			let emailRestriction = document.getElementById('tournamentEmailRestriction').innerHTML;
+			let mailRestrictionField = document.getElementById('mailRestrictionField');
+			mailModal.show();
+			mailRestrictionField.innerHTML = emailRestriction;
+			document.getElementById('modalEmail').value = 'example' + emailRestriction;
+		});
 	}
 }
