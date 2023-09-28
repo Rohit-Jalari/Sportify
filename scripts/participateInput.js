@@ -24,8 +24,11 @@ function removePrefix(e) {
         e.value = '';
     }
 }
-
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('input').disabled = true;
+    console.log('t');
+  });
 window.addEventListener('load', () => {
-    // $(document).ajaxStop($.unblockUI);
-    inputLimitLoad('target', 'input', 13);
+    document.getElementById('input').disabled = false;
+    participateProcessor('target', 'input', 13);
 });
