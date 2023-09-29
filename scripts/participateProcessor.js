@@ -38,9 +38,12 @@ function participateProcessor(target, input, max) {
 			contentType: 'application/json',
 			dataType: 'json',
 			success: function (data) {
-				updateInformation(data, target);
+				let mailRestrict = updateInformation(data, target);
 				$("#target").unblock();
-				modalProcess();
+				if (mailRestrict != null) {
+					modalProcess(mailRestrict);
+				}
+				
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				console.error('Error:', textStatus, errorThrown);
@@ -59,14 +62,12 @@ function participateProcessor(target, input, max) {
 				<div class="card-header">Invalid Request</div>
 			</div>
 			`);
-
 		} else if (data.message == 'Tournament not found') {
 			$(`#${target}`).html(`
 			<div class="card text-center" style="border: 1px solid #444564;">
 				<div class="card-header">Tournament Not Found</div>
 			</div>
 			`);
-
 		} else {
 			// $(`#${target}`).find('.card-title')[0].text(data.tournamentName); //For loading spinner check
 			let emailRestriction = (data.emailRestriction == null) ? 'None' : data.emailRestriction;
@@ -79,21 +80,18 @@ function participateProcessor(target, input, max) {
 					<button id='participateModal' class="btn btn-primary">Participate</button>
 				</div>
 			</div>
-			<script type="text/javascript">
-    		
-			</script>
 			`);
+			return emailRestriction;
 		}
 	}
-	function modalProcess() {
+	function modalProcess(email) {
 		var mailModal = new bootstrap.Modal(document.getElementById('emailModalToggle'));
 		let participateModal = document.getElementById('participateModal');
 		participateModal.addEventListener('click', () => {
-			let emailRestriction = document.getElementById('tournamentEmailRestriction').innerHTML;
 			let mailRestrictionField = document.getElementById('mailRestrictionField');
 			mailModal.show();
-			mailRestrictionField.innerHTML = emailRestriction;
-			document.getElementById('modalEmail').value = 'example' + emailRestriction;
+			mailRestrictionField.innerHTML = email;
+			document.getElementById('modalEmail').value = 'example' + email;
 		});
 	}
 }
