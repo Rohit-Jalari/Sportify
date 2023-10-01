@@ -91,6 +91,7 @@ require('../config/session.php');
 
 <script type="text/javascript" src="../scripts/participateProcessor.js"> </script>
 <script type="text/javascript" src="../scripts/mailModalValidation.js"> </script>
+<script type="text/javascript" src="../scripts/passwordModalValidation.js"> </script>
 <script type="text/javascript" src="../assets/vendor/libs/cleave/Cleave.min.js"></script>
 <script type="text/javascript" src="../assets/vendor/libs/block-ui/block-ui.js"></script>
 <script type="text/javascript" src="../scripts/participateInput.js"></script>

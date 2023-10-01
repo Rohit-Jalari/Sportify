@@ -15,7 +15,6 @@ if ($requestData && isset($requestData->tournamentID) && isset($requestData->aut
     $response = ['message' => 'Email is already in use for authentication'];
 
     if ($accountData == 0) {
-        // var_dump($tournamentData);
         $response = true;
     }
 

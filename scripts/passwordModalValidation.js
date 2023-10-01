@@ -3,16 +3,15 @@ const verify = document.getElementById("verify");
 verify.addEventListener('click', () => {
     const code = document.getElementById("modalCode");
     const inputValue = document.getElementById('input').value.replace(/\s*-\s*/g, "");
-    if (!isInputEmpty(code)) {
+    if (!validateCode(code)) {
         return;
     };
-    console.log(email.value);
     LoadingUI(emailModalToggle);
-    // AJAXProcessor(inputValue, code.value.trim());
+    // AJAXPasswordProcessor(inputValue, code.value.trim());
 
 });
 
-function isInputEmpty(code) {
+function validateCode(code) {
     const codeValue = code.value.trim();
     var valid = true;
 
@@ -49,7 +48,7 @@ function LoadingUI(target) {
         }
     })
 }
-function AJAXProcessor(ID, mail) {
+function AJAXPasswordProcessor(ID, mail) {
     var requestData = {
         tournamentID: ID,
         authenticatedMail: mail

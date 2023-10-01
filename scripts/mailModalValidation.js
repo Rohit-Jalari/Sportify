@@ -72,12 +72,34 @@ function AJAXProcessor(ID, mail) {
         success: function (data) {
             $("#emailModalToggle").unblock();
             if (data == true) {
-                let mailModal = new bootstrap.Modal(document.getElementById('emailModalToggle'));
-                mailModal.hide();
+                sendMail(requestData);
+                // var passwordModal = new bootstrap.Modal(document.getElementById('passwordModalToggle'));
+                // passwordModal.show();
+            } else {
+                setErrorFor(document.getElementById("modalEmail"), "Account already used for authentication")
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $("#emailModalToggle").unblock();
+            console.error('Error:', textStatus, errorThrown);
+        }
+    });
+}
+function sendMail(requestData) {
+    $("#emailModalToggle").block();
+    $.ajax({
+        type: 'POST',
+        url: '../process/sendMail.php',
+        data: JSON.stringify(requestData),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            $("#emailModalToggle").unblock();
+            if (data.message == 'success') {
                 var passwordModal = new bootstrap.Modal(document.getElementById('passwordModalToggle'));
                 passwordModal.show();
             } else {
-                setErrorFor(document.getElementById("modalEmail"), "Account already used for authentication")
+                setErrorFor(document.getElementById("modalEmail"), "Sorry, Email couldn't be sent.");
             }
         },
         error: function (xhr, textStatus, errorThrown) {
