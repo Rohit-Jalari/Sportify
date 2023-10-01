@@ -12,23 +12,8 @@ unset($_SESSION['error']);
   <!-- Page CSS -->
   <!-- Page -->
   <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
-  <style>
-    .Input.error input,
-    .Input.error span {
-      border: 2px solid #ff6e63;
-    }
-
-    .Input>small {
-      /* display: block; */
-      color: red;
-      display: none;
-      font-size: 14px;
-    }
-
-    .Input.error small {
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/error.css" />
+  
 </head>
 
 <body>

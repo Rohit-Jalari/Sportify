@@ -16,7 +16,6 @@ function participateProcessor(target, input, max) {
 	function LoadingUI() {
 		$("#target").block({
 			message: '<div class="spinner-border text-primary" role="status"></div>',
-			timeout: 2000,
 			css: {
 				backgroundColor: "transparent",
 				border: "0"
@@ -40,13 +39,14 @@ function participateProcessor(target, input, max) {
 			success: function (data) {
 				let mailRestrict = updateInformation(data, target);
 				$("#target").unblock();
-				if (mailRestrict != null) {
+				if (mailRestrict != 'None') {
 					modalProcess(mailRestrict);
 				}
 				
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				console.error('Error:', textStatus, errorThrown);
+				$("#target").unblock();
 				$(`#${target}`).html(`
 				<div class="card text-center" style="border: 1px solid #444564;">
 					<div class="card-header">An error occurred while searching for the tournament.</div>
@@ -91,7 +91,8 @@ function participateProcessor(target, input, max) {
 			let mailRestrictionField = document.getElementById('mailRestrictionField');
 			mailModal.show();
 			mailRestrictionField.innerHTML = email;
-			document.getElementById('modalEmail').value = 'example' + email;
+			document.getElementById('modalEmail').placeholder = 'example' + email;
 		});
+
 	}
 }

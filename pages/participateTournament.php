@@ -9,6 +9,7 @@ require('../config/session.php');
 <head>
 	<?php include('../includes/head.php'); ?>
 	<link rel="stylesheet" href="../assets/vendor/css/rtl/core-dark.css">
+	<link rel="stylesheet" href="../assets/css/error.css" />
 	<style>
 		input {
 			height: 3rem;
@@ -72,6 +73,7 @@ require('../config/session.php');
 			</div>
 		</div>
 		<?php include('../includes/mailModal.php'); ?>
+		<?php include('../includes/passwordModal.php'); ?>
 		<!--Overlay -->
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
@@ -88,6 +90,7 @@ require('../config/session.php');
 <?php } ?>
 
 <script type="text/javascript" src="../scripts/participateProcessor.js"> </script>
+<script type="text/javascript" src="../scripts/mailModalValidation.js"> </script>
 <script type="text/javascript" src="../assets/vendor/libs/cleave/Cleave.min.js"></script>
 <script type="text/javascript" src="../assets/vendor/libs/block-ui/block-ui.js"></script>
 <script type="text/javascript" src="../scripts/participateInput.js"></script>
