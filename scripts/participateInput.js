@@ -22,12 +22,15 @@ function addPrefix(e) {
 function removePrefix(e) {
     if (e.value == '#') {
         e.value = '';
+        const targetDiv = document.getElementById("target");
+        while (targetDiv.firstChild) {
+            targetDiv.removeChild(targetDiv.firstChild);
+        }
     }
 }
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('input').disabled = true;
-    console.log('t');
-  });
+});
 window.addEventListener('load', () => {
     document.getElementById('input').disabled = false;
     participateProcessor('target', 'input', 13);

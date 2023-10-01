@@ -1,0 +1,15 @@
+.Input.error input,
+.Input.error span {
+    border: 2px solid #ff6e63;
+}
+
+.Input>small {
+    /* display: block; */
+    color: red;
+    display: none;
+    font-size: 14px;
+}
+
+.Input.error small {
+    display: block;
+}
