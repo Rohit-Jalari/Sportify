@@ -4,8 +4,7 @@ require('../config/session.php');
 
 <!DOCTYPE html>
 <html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
-	data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-template="vertical-menu-template-free">
 
 <head>
 	<?php include('../includes/head.php'); ?>
@@ -25,7 +24,7 @@ require('../config/session.php');
 	include('../includes/errorModal.php');
 
 	// print_r($userRecord);
-	
+
 	//checks if Login buttons is clicked or not
 	if (isset($_POST['submit']) && $_POST['submit'] == 'submit') {
 		$tournamentName = htmlspecialchars($_POST['tournamentName']);
@@ -79,28 +78,28 @@ require('../config/session.php');
 			if ($updateResult->getModifiedCount() <= 0) {
 				throw new Exception("Update failed");
 			}
-			
+
 			$_SESSION['tournamentDetail'] = $tournamentDetail;
 			$participantData = [
-				"tournamentID" => $tournamentID ,
+				"tournamentID" => $tournamentID,
 				"userID" => null
 			];
 			$participantInsert = $databaseCon->Participants->insertOne($participantData);
 			$session->commitTransaction();
-			?>
+	?>
 			<script>
 				location.replace("tournamentIndex.php");
 			</script>
-			<?php
+		<?php
 		} catch (Exception $e) {
-			
+
 			$session->abortTransaction();
-			?>
+		?>
 			<script>
 				let myModal = new bootstrap.Modal(document.getElementById('errorModalToggle'));
 				myModal.show();
 			</script>
-			<?php
+	<?php
 		} finally {
 			$session->endSession();
 		}
@@ -143,45 +142,35 @@ require('../config/session.php');
 											<div class="row">
 												<div class="col mb-3">
 													<label for="tournamentName" class="form-label">Name</label>
-													<input type="text" id="tournamentName" class="form-control"
-														placeholder="Enter Name" name="tournamentName" required>
+													<input type="text" id="tournamentName" class="form-control" placeholder="Enter Name" name="tournamentName" required>
 												</div>
 											</div>
 											<div class="row g-2">
 												<div class="col mb-0">
 													<div class="mb-3">
-														<label for="date" class="form-label">Date
-														</label>
+														<label for="date" class="form-label">Date</label>
 
-														<div class="input-group input-daterange"
-															id="bs-datepicker-daterange">
-															<input id="date" type="text" placeholder="YYYY/MM/DD"
-																class="form-control" name="startDate" required>
+														<div class="input-group input-daterange" id="bs-datepicker-daterange">
+															<input id="date" type="text" placeholder="YYYY/MM/DD" class="form-control" name="startDate" required>
 															<span class="input-group-text">to</span>
-															<input type="text" placeholder="YYYY/MM/DD"
-																class="form-control" name="endDate" required>
+															<input type="text" placeholder="YYYY/MM/DD" class="form-control" name="endDate" required>
 														</div>
 													</div>
 												</div>
 												<div class="cpl mb-3">
 													<label for="location" class="form-label ">Location</label>
-													<input type="text" id="location" class="form-control"
-														placeholder="Enter location" name="location" required>
+													<input type="text" id="location" class="form-control" placeholder="Enter location" name="location" required>
 												</div>
 												<div class="cpl mb-3">
 													<label for="description" class="form-label">Description</label>
-													<textarea id="description" class="form-control"
-														placeholder="Enter Description of the Tournament"
-														name="description" rows="4" style="color:white;"
-														required></textarea>
+													<textarea id="description" class="form-control" placeholder="Enter Description of the Tournament" name="description" rows="4" style="color:white;" required></textarea>
 												</div>
 
 												<div class="d-flex">
 													<h5 class="title" id="TopTitle">Advance Setting</h5>
 													<div class="mb-3 ms-3">
 														<div class="form-check form-switch">
-															<input class="form-check-input" type="checkbox"
-																id="advanceSetting" name="advanceSetting">
+															<input class="form-check-input" type="checkbox" id="advanceSetting" name="advanceSetting">
 															<label class="form-check-label" for="advanceSetting">Enable
 																Email-Domain
 																Restriction</label>
@@ -189,19 +178,15 @@ require('../config/session.php');
 													</div>
 												</div>
 												<div class="cpl mb-3">
-													<div class="email-restriction"
-														style="height:0px;overflow:hidden;transition:0.5s ease;">
+													<div class="email-restriction" style="height:0px;overflow:hidden;transition:0.5s ease;">
 														<label for="emailRestriction" class="form-label">Email-Domain
 															Restriction
 														</label>
-														<input type="text" class="form-control" id="emailRestriction"
-															placeholder="@example.com" name="emailRestriction"
-															pattern="^@[a-zA-Z0-9]*\.[\w\d]+[\.\w\d]*">
+														<input type="text" class="form-control" id="emailRestriction" placeholder="@example.com" name="emailRestriction" pattern="^@[a-zA-Z0-9]*\.[\w\d]+[\.\w\d]*">
 													</div>
 												</div>
 											</div>
-											<button id="formSubmit" class="btn btn-primary" name="submit"
-												value="submit">Submit</button>
+											<button id="formSubmit" class="btn btn-primary" name="submit" value="submit">Submit</button>
 										</form>
 									</div>
 								</div>
@@ -226,7 +211,7 @@ require('../config/session.php');
 	</script>
 <?php } ?>
 <script type="text/javascript">
-	document.getElementById('advanceSetting').addEventListener('change', function () {
+	document.getElementById('advanceSetting').addEventListener('change', function() {
 		let advanceSetting = document.querySelector('#advanceSetting');
 		var emailRestriction = document.querySelector('.email-restriction');
 		var emailRestrictionField = document.querySelector('#emailRestriction');
@@ -237,13 +222,13 @@ require('../config/session.php');
 			emailRestriction.style.height = '0';
 			emailRestrictionField.removeAttribute('required');
 		}
-	});		
+	});
 </script>
 <script src="../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-	$("#bs-datepicker-daterange").datepicker(
-		{ format: "yyyy/mm/dd" }
-	);
+	$("#bs-datepicker-daterange").datepicker({
+		format: "yyyy/mm/dd"
+	});
 </script>
 <script type="text/javascript">
 	document.getElementById("formSubmit").addEventListener('click', () => {
