@@ -41,8 +41,7 @@ function participateProcessor(target, input, max) {
 				$("#target").unblock();
 				if (mailRestrict != 'None') {
 					modalProcess(mailRestrict);
-				}
-				
+				}	
 			},
 			error: function (xhr, textStatus, errorThrown) {
 				console.error('Error:', textStatus, errorThrown);

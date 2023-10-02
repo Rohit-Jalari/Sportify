@@ -1,14 +1,15 @@
 const verify = document.getElementById("verify");
 
 verify.addEventListener('click', () => {
+    const email = document.getElementById("modalEmail").value.trim();
     const code = document.getElementById("modalCode");
     const inputValue = document.getElementById('input').value.replace(/\s*-\s*/g, "");
     if (!validateCode(code)) {
         return;
     };
-    LoadingUI(emailModalToggle);
-    // AJAXPasswordProcessor(inputValue, code.value.trim());
-
+    console.log(email);
+    LoadingUIPassword(passwordModalToggle);
+    AJAXPasswordProcessor(inputValue, code.value.trim(), email);
 });
 
 function validateCode(code) {
@@ -33,11 +34,9 @@ function removeError(element) {
     const input = element.parentElement;
     input.classList.remove("error");
 }
-
-function LoadingUI(target) {
+function LoadingUIPassword(target) {
     $(target).block({
         message: '<div class="spinner-border spinner-border-lg text-primary" role="status"></div>',
-        timeout: 2000,
         css: {
             backgroundColor: "transparent",
             border: "0"
@@ -48,27 +47,28 @@ function LoadingUI(target) {
         }
     })
 }
-function AJAXPasswordProcessor(ID, mail) {
+function AJAXPasswordProcessor(ID, code, email) {
     var requestData = {
         tournamentID: ID,
-        authenticatedMail: mail
+        code: code,
+        email: email
     };
     $.ajax({
         type: 'POST',
-        url: '../process/processEmailModal.php',
+        url: '../process/processPasswordModal.php',
         data: JSON.stringify(requestData),
         contentType: 'application/json',
         dataType: 'json',
         success: function (data) {
-            $("#emailModalToggle").unblock();
-            if(data.message == true) {
-
+            $("#passwordModalToggle").unblock();
+            if(data == 'success') {
+                location.replace('../pages/tournamentIndex.php');
             } else {
-                setErrorFor(document.getElementById("modalEmail"), "Account already used for authentication")
+                setErrorFor(document.getElementById("modalCode"), data);
             }
         },
         error: function (xhr, textStatus, errorThrown) {
-            $("#emailModalToggle").unblock();
+            $("#passwordModalToggle").unblock();
             console.error('Error:', textStatus, errorThrown);
         }
     });

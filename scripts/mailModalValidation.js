@@ -7,10 +7,8 @@ sendCode.addEventListener('click', () => {
     if (!validateInput(email, emailDomain)) {
         return;
     };
-    console.log(email.value);
     LoadingUI(emailModalToggle);
     AJAXProcessor(inputValue, email.value.trim());
-
 });
 
 function validateInput(email, emailDomain) {
@@ -47,7 +45,6 @@ function isEmail(email, domain) {
 function LoadingUI(target) {
     $(target).block({
         message: '<div class="spinner-border spinner-border-lg text-primary" role="status"></div>',
-        timeout: 2000,
         css: {
             backgroundColor: "transparent",
             border: "0"
@@ -65,17 +62,15 @@ function AJAXProcessor(ID, mail) {
     };
     $.ajax({
         type: 'POST',
-        url: '../process/processEmailModal.php',
+        url: '../process/processMailModal.php',
         data: JSON.stringify(requestData),
         contentType: 'application/json',
         dataType: 'json',
         success: function (data) {
-            $("#emailModalToggle").unblock();
             if (data == true) {
                 sendMail(requestData);
-                // var passwordModal = new bootstrap.Modal(document.getElementById('passwordModalToggle'));
-                // passwordModal.show();
             } else {
+                $("#emailModalToggle").unblock();
                 setErrorFor(document.getElementById("modalEmail"), "Account already used for authentication")
             }
         },
@@ -86,7 +81,6 @@ function AJAXProcessor(ID, mail) {
     });
 }
 function sendMail(requestData) {
-    $("#emailModalToggle").block();
     $.ajax({
         type: 'POST',
         url: '../process/sendMail.php',
@@ -99,6 +93,7 @@ function sendMail(requestData) {
                 var passwordModal = new bootstrap.Modal(document.getElementById('passwordModalToggle'));
                 passwordModal.show();
             } else {
+                $("#emailModalToggle").unblock();
                 setErrorFor(document.getElementById("modalEmail"), "Sorry, Email couldn't be sent.");
             }
         },

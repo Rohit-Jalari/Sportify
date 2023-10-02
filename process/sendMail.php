@@ -1,4 +1,12 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../vendor/phpmailer/phpmailer/src/SMTP.php';
+require '../vendor/phpmailer/phpmailer/src/Exception.php';
 require('../config/dbCon.php');
 require('../config/session.php');
 
@@ -47,13 +55,35 @@ function generateCode($length)
     }
     return str_shuffle($password);
 }
-function sendMail($to, $code)
+function sendMail($authenticatedMail, $code)
 {
-    $subject = "Verify your Account";
-    $message = "Verification Code :" . $code;
-    if (mail($to, $subject, $message)) {
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'be2019se691@gces.edu.np';
+        $mail->Password = 'zgloclcdlwxocdgd'; //2SV then app password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Sender and recipient details
+        $mail->setFrom('be2019se691@gces.edu.np', 'SPORTIFY');
+        $mail->addAddress($authenticatedMail, 'User');
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = 'Verify your account using following Code';
+        $mail->Body = 'Code : '.$code;
+
+        // Send the email
+        $mail->send();
         return true;
-    } else {
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         return false;
     }
 }

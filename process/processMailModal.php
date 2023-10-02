@@ -32,5 +32,4 @@ function searchAccount($tournamentID, $authenticatedMail, $userCollection)
     $result = $userCollection->countDocuments($filter);
     return $result;
 }
-
 ?>
