@@ -72,47 +72,21 @@
 		if ($userRecord != null && $userRecord['participatedTournaments'] != null) { ?>
 			<li class="menu-header small text-uppercase"><span class="menu-header-text">Joined Tournament</span></li>
 
-			<?php foreach ($userRecord['participatedTournaments'] as $listItem) { ?>
+			<?php foreach ($userRecord['participatedTournaments'] as $ID => $mail) {
+				require_once("../config/dbCon.php");
+				$result = $databaseCon->Tournaments->findOne(["tournamentID" => $ID]);
+				?>
 				<!-- Participated Tournament List Item -->
 				<li class="menu-item">
-					<a href="javascript:void(0);" class="menu-link">
+					<a href="../pages/participatedTournamentIndex.php" class="menu-link participateLink">
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 						<div data-i18n="Messages">
-							<?= $listItem; ?>
+							<?php echo $result["tournamentName"]."<br>". "<h6>".$result["tournamentID"]."</h6>"; ?>
 						</div>
 					</a>
 				</li>
 			<?php }
 		} ?>
-
-
-		<!-- Social Networking
-		<li class="menu-header small text-uppercase"><span class="menu-header-text">Social Networking</span></li>
-
-		<li class="menu-item">
-			<a href="../pages/messages.php" class="menu-link">
-				<i class="menu-icon tf-icons bx bx-detail"></i>
-				<div data-i18n="Messages">Messages</div>
-			</a>
-		</li>
-		<li class="menu-item">
-			<a href="javascript:void(0);" class="menu-link menu-toggle">
-				<i class="menu-icon tf-icons bx bx-detail"></i>
-				<div data-i18n="Friends">Friends</div>
-			</a>
-			<ul class="menu-sub">
-				<li class="menu-item">
-					<a href="../pages/addFriends.php" class="menu-link">
-						<div data-i18n="AddFriends">Add Friends</div>
-					</a>
-				</li>
-				<li class="menu-item">
-					<a href="../pages/friendList.php" class="menu-link">
-						<div data-i18n="FriendList">Friend List</div>
-					</a>
-				</li>
-			</ul>
-		</li> -->
 
 		<!-- Profile -->
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">Profile</span></li>
@@ -158,3 +132,26 @@
 
 	</ul>
 </aside>
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+<script>
+	$(document).ready(function () {
+		$(".participateLink").on("click", function (e) {
+			e.preventDefault();
+
+			var linkElement = $(this);
+			var tournamentID = linkElement.find("h6").text();
+
+			$.ajax({
+				url: "../config/setTournamentSession.php",
+				method: "POST",
+				data: { tournamentID: tournamentID },
+				success: function (response) {
+					window.location.href = linkElement.attr("href");
+				},
+				error: function (error) {
+					console.error("Error setting session: " + error);
+				}
+			});
+		});
+	});
+</script>

@@ -62,7 +62,7 @@ function AJAXPasswordProcessor(ID, code, email) {
         success: function (data) {
             $("#passwordModalToggle").unblock();
             if(data == 'success') {
-                location.replace('../pages/tournamentIndex.php');
+                location.replace('../pages/participatedTournamentIndex.php');
             } else {
                 setErrorFor(document.getElementById("modalCode"), data);
             }

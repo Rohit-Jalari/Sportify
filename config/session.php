@@ -9,4 +9,9 @@ if(isset($_SESSION['loggedIn'])) {
     $loggedIn = false;
     $userRecord = null;
 }
+if(isset($_SESSION['participatedTournament'])) {
+    $participatedTournament = $_SESSION['participatedTournament'];
+} else {
+    $participatedTournament = null;
+}
 ?>

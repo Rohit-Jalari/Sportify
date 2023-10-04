@@ -8,12 +8,12 @@ $requestData = json_decode(file_get_contents('php://input'));
 if ($requestData && isset($requestData->tournamentID) && isset($requestData->code) && isset($requestData->email)) {
 
     $userID = $userRecord['userID'];
-    $userCollection = $databaseCon->Users;
+    $connection = $databaseCon;
     $tournamentID = $requestData->tournamentID;
     $code = $requestData->code;
     $email = $requestData->email;
 
-    $searchData = searchCode($userID, $tournamentID, $code, $userCollection, $email);
+    $searchData = searchCode($userID, $tournamentID, $code, $connection, $email);
 
     // Set the response content type to JSON
     header("Content-Type: application/json");
@@ -21,7 +21,7 @@ if ($requestData && isset($requestData->tournamentID) && isset($requestData->cod
 } else {
     echo json_encode(['message' => 'Invalid request']);
 }
-function searchCode($userID, $tournamentID, $code, $userCollection, $email)
+function searchCode($userID, $tournamentID, $code, $connection, $email)
 {
     // $userID = $userRecord['userID'];
     $filter = [
@@ -29,6 +29,7 @@ function searchCode($userID, $tournamentID, $code, $userCollection, $email)
         'authentication.tournamentID' => $tournamentID,
         'authentication.code' => $code,
     ];
+    $userCollection = $connection->Users;
     $result = $userCollection->findOne($filter);
 
     if (isset($result['userID'])) {
@@ -50,9 +51,25 @@ function searchCode($userID, $tournamentID, $code, $userCollection, $email)
             ];
             $result = $userCollection->updateOne($userCriteria, $updateParticipateStatus);
             if ($result->getModifiedCount() > 0) {
-                $response = "success";
-                return $response;
-
+                $participantCollection = $connection->Participants;
+                $tournamentCriteria = [
+                    'tournamentID' => $tournamentID
+                ];
+                $update = [
+                    '$push' => ["userID" => $userID]
+                ];
+                $updateResult = $participantCollection->updateOne($tournamentCriteria, $update);
+                if ($updateResult->getModifiedCount() > 0) {
+                    $tournamentResult = $connection->Tournaments->findOne(["tournamentID" => $tournamentID]);
+                    $_SESSION['participatedTournament'] = $tournamentResult;
+                    $user = $userCollection->findOne(["userID" => $userID]);
+                    $_SESSION['userRecord'] = $user;
+                    $response = "success";
+                    return $response;
+                } else {
+                    $response = "Couldnot update dB";
+                    return $response;
+                }
             } else {
                 $response = "Couldnot update dB";
                 return $response;

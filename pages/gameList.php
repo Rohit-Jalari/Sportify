@@ -26,7 +26,7 @@ require('../config/session.php');
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            <?php include('../includes/tournamentAside.php') ?>
+            <?php include('../includes/participatedTournamentAside.php') ?>
             <div class="layout-page" style="height: 150vh">
                 <?php include('../includes/navbar.php') ?>
                 <!-- Content wrapper -->

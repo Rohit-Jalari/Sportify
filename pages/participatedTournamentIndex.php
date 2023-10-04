@@ -1,5 +1,6 @@
 <?php
 require('../config/session.php');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@ require('../config/session.php');
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
 			<!-- Menu -->
-			<?php include('../includes/tournamentAside.php') ?>
+			<?php include('../includes/participatedTournamentAside.php') ?>
 
 			<div class="layout-page" style="height: 150vh">
 				<?php include('../includes/navbar.php') ?>
@@ -23,8 +24,7 @@ require('../config/session.php');
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<?php
-						// print_r($_SESSION['tournamentDetail']);
-						// print_r($tournamentDetail);
+						print_r($participatedTournament); 
 						?>
 					</div>
 				</div>

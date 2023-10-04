@@ -10,6 +10,7 @@ require('../config/session.php');
     <?php include('../includes/head.php'); ?>
     <link rel="stylesheet" href="../assets/vendor/css/rtl/core-dark.css">
     <link rel="stylesheet" href="../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css">
+    <script src="../assets/vendor/js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -38,7 +39,8 @@ require('../config/session.php');
                                                 <div class="col mb-3">
                                                     <label for="tournamentName" class="form-label">Name</label>
                                                     <input type="text" id="tournamentName" class="form-control"
-                                                        placeholder="Enter Name" name="tournamentName" required>
+                                                        placeholder="Enter Name" name="tournamentName" required
+                                                        value="<?= $participatedTournament['tournamentName']; ?>">
                                                 </div>
                                             </div>
                                             <div class="row g-2">
@@ -50,24 +52,27 @@ require('../config/session.php');
                                                         <div class="input-group input-daterange"
                                                             id="bs-datepicker-daterange">
                                                             <input id="date" type="text" placeholder="YYYY/MM/DD"
-                                                                class="form-control" name="startDate" required>
+                                                                class="form-control" name="startDate" required
+                                                                value="<?= $participatedTournament['startDate']; ?>">
                                                             <span class="input-group-text">to</span>
                                                             <input type="text" placeholder="YYYY/MM/DD"
-                                                                class="form-control" name="endDate" required>
+                                                                class="form-control" name="endDate" required
+                                                                value="<?= $participatedTournament['endDate']; ?>">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="cpl mb-3">
                                                     <label for="location" class="form-label ">Location</label>
                                                     <input type="text" id="location" class="form-control"
-                                                        placeholder="Enter location" name="location" required>
+                                                        placeholder="Enter location" name="location" required
+                                                        value="<?= $participatedTournament['location']; ?>">
                                                 </div>
                                                 <div class="cpl mb-3">
                                                     <label for="description" class="form-label">Description</label>
                                                     <textarea id="description" class="form-control"
                                                         placeholder="Enter Description of the Tournament"
                                                         name="description" rows="4" style="color:white;"
-                                                        required></textarea>
+                                                        required><?= $participatedTournament['description']; ?></textarea>
                                                 </div>
 
                                                 <div class="d-flex">
@@ -90,7 +95,7 @@ require('../config/session.php');
                                                         </label>
                                                         <input type="text" class="form-control" id="emailRestriction"
                                                             placeholder="@example.com" name="emailRestriction"
-                                                            pattern="^@[a-zA-Z0-9]*\.[\w\d]+[\.\w\d]*">
+                                                            pattern="^@[a-zA-Z0-9]*\.[\w\d]+[\.\w\d]*" value="<?= $participatedTournament['emailRestriction']; ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,5 +115,25 @@ require('../config/session.php');
     </div>
 </body>
 <?php include('../includes/script.php') ?>
+<script type="text/javascript">
+    document.getElementById('advanceSetting').addEventListener('change', function () {
+        let advanceSetting = document.querySelector('#advanceSetting');
+        var emailRestriction = document.querySelector('.email-restriction');
+        var emailRestrictionField = document.querySelector('#emailRestriction');
+        if (advanceSetting.checked) {
+            emailRestriction.style.height = '5rem';
+            emailRestrictionField.setAttribute('required', '');
+        } else {
+            emailRestriction.style.height = '0';
+            emailRestrictionField.removeAttribute('required');
+        }
+    });		
+</script>
+<script src="../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+    $("#bs-datepicker-daterange").datepicker(
+        { format: "yyyy/mm/dd" }
+    );
+</script>
 
 </html>
