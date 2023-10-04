@@ -137,7 +137,6 @@ require('../config/session.php');
 									<div class="card-header d-flex justify-content-between align-items-center">
 										<h1 class="mb-0">Tournament Creation</h5>
 									</div>
-
 									<div class="card-body">
 										<form id="formTournament" class="mb-3" action="" method="POST">
 											<div class="row">

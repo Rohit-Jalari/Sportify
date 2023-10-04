@@ -13,7 +13,8 @@ window.addEventListener('load',()=>{
 		}
 		if(urlFilename != 'index.php' && urlFilename != '') {
 			// console.log(urlFilename);
-			document.querySelectorAll(`a[href="../pages/index.php"]`)[1].parentElement.classList.remove('active');
+			// document.querySelectorAll(`a[href="../pages/index.php"]`)[1].parentElement.classList.remove('active');
+			document.querySelector('.menu-inner').querySelectorAll('.menu-link')[0].parentElement.classList.remove('active');;
 			// console.log(document.querySelectorAll(`a[href="../pages/index.php"]`)[1].parentElement);
 		}
 		if(activePage[0].parentElement.parentElement.className == "menu-sub"){
