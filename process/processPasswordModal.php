@@ -51,7 +51,7 @@ function searchCode($userID, $tournamentID, $code, $connection, $email)
             ];
             $result = $userCollection->updateOne($userCriteria, $updateParticipateStatus);
             if ($result->getModifiedCount() > 0) {
-                $participantCollection = $connection->Participants;
+                $participantCollection = $connection->Participation;
                 $tournamentCriteria = [
                     'tournamentID' => $tournamentID
                 ];

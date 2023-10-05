@@ -7634,7 +7634,7 @@ a.invert-bg-dark:focus {
 }
 
 .table-dark {
-  --bs-table-bg: #2e2e43;
+  --bs-table-bg: #313146;
   --bs-table-striped-bg: #ebebeb;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #e6e6e6;

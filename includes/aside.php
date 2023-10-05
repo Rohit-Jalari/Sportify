@@ -58,10 +58,13 @@
 			<li class="menu-header small text-uppercase"><span class="menu-header-text">Created Tournament</span></li>
 			<!-- Tournament List item -->
 			<li class="menu-item">
-				<a href="javascript:void(0);" class="menu-link">
+				<a href="../pages/createdTournamentIndex.php" class="menu-link createdLink">
 					<i class="menu-icon tf-icons bx bx-detail"></i>
 					<div data-i18n="Messages">
-						<?= ($databaseCon->Tournaments->findOne(['tournamentID' => $userRecord['tournamentID']])['tournamentName']); ?>
+						<?php
+						$result = $databaseCon->Tournaments->findOne(['tournamentID' => $userRecord['tournamentID']]);
+						(['tournamentName']);
+						echo $result["tournamentName"] . "<br>" . "<h6>" . $result["tournamentID"] . "</h6>"; ?>
 					</div>
 				</a>
 			</li>
@@ -81,7 +84,7 @@
 					<a href="../pages/participatedTournamentIndex.php" class="menu-link participateLink">
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 						<div data-i18n="Messages">
-							<?php echo $result["tournamentName"]."<br>". "<h6>".$result["tournamentID"]."</h6>"; ?>
+							<?php echo $result["tournamentName"] . "<br>" . "<h6>" . $result["tournamentID"] . "</h6>"; ?>
 						</div>
 					</a>
 				</li>
@@ -136,6 +139,28 @@
 <script>
 	$(document).ready(function () {
 		$(".participateLink").on("click", function (e) {
+			e.preventDefault();
+
+			var linkElement = $(this);
+			var tournamentID = linkElement.find("h6").text();
+
+			$.ajax({
+				url: "../config/setTournamentSession.php",
+				method: "POST",
+				data: { tournamentID: tournamentID },
+				success: function (response) {
+					window.location.href = linkElement.attr("href");
+				},
+				error: function (error) {
+					console.error("Error setting session: " + error);
+				}
+			});
+		});
+	});
+</script>
+<script>
+	$(document).ready(function () {
+		$(".createdLink").on("click", function (e) {
 			e.preventDefault();
 
 			var linkElement = $(this);

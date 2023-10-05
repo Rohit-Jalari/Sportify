@@ -12,7 +12,7 @@
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item active">
-            <a href="../pages/participatedTournamentIndex.php" class="menu-link">
+            <a href="../pages/createdTournamentIndex.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Name"><?=$participatedTournament["tournamentName"];?></div>
             </a>
@@ -20,6 +20,12 @@
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Manage</span>
+        </li>
+        <li class="menu-item">
+            <a href="../pages/seeCreatedTournamentDetail.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Edit">See Details</div>
+            </a>
         </li>
         <li class="menu-item">
             <a href="../pages/tournamentEdit.php" class="menu-link">
@@ -31,7 +37,7 @@
             <span class="menu-header-text">Games</span>
         </li>
         <li class="menu-item">
-            <a href="../pages/gameList.php" class="menu-link">
+            <a href="../pages/createdGameList.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="List">Game List</div>
             </a>

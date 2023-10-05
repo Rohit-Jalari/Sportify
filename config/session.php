@@ -14,4 +14,9 @@ if(isset($_SESSION['participatedTournament'])) {
 } else {
     $participatedTournament = null;
 }
+if(isset($_SESSION['gameDetail'])) {
+    $gameDetail = $_SESSION['gameDetail'];
+} else {
+    $gameDetail = null;
+}
 ?>

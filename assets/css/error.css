@@ -1,5 +1,7 @@
 .Input.error input,
-.Input.error span {
+.Input.error span,
+.Input.error select,
+.Input.error textarea {
     border: 2px solid #ff6e63;
 }
 

@@ -27,7 +27,7 @@ require('../config/session.php');
         <div class="layout-container">
             <!-- Menu -->
             <?php include('../includes/participatedTournamentAside.php') ?>
-            <div class="layout-page" style="height: 150vh">
+            <div class="layout-page">
                 <?php include('../includes/navbar.php') ?>
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -35,24 +35,11 @@ require('../config/session.php');
                         <?php require('../includes/gameModal.php'); ?>
                         <div class="row">
                             <div class="col-x1">
-                                <div class="card mb-4">
-                                    <div class="card-header d-flex justify-content-center align-items-center">
-                                        <div class="gap-2">
-                                            <button class="btn btn-primary" style="width: 10rem;" type="button"
-                                                id="addGames">Add
-                                                Game</button>
-                                        </div>
-
-                                        <!-- Separate box for "Game Name" -->
-                                    </div> <!-- Separate box for the entire content -->
-                                </div>
-                            </div>
-                            <div class="col-x1">
                                 <div class="gap-2">
                                     <label class="form-label">
-                                        <h2>
+                                        <h3>
                                             Game List
-                                        </h2>
+                                        </h3>
                                     </label>
                                 </div>
                                 <div class="card mb-4">
@@ -66,46 +53,43 @@ require('../config/session.php');
                                                             <!-- First Row in the First Column -->
                                                             <div class="row">
                                                                 <div>
-                                                                    <h2>
+                                                                    <h4>
                                                                         Game Name
-                                                                    </h2>
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <div>
+                                                                    <h6>
+                                                                        #ABCD1234                                                                       
+                                                                    </h6>
                                                                 </div>
                                                             </div>
                                                             <!-- Second Row in the First Column -->
                                                             <div class="row">
                                                                 <div>
-                                                                    <h4>
+                                                                    <h5>
                                                                         Game Type <i class='bx bx-football'></i>
-                                                                    </h4>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
                                                             <!-- Third Row in the First Column -->
                                                             <div class="row">
                                                                 <div>
-                                                                    <h4>
+                                                                    <h5>
                                                                         Gender
-                                                                    </h4>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <!-- Second Column -->
                                                         <td class="col-sm-1">
-                                                            <div class="row mb-3">
-                                                                <div>
-                                                                    <button class="btn btn-primary" style="width: 4rem;"
-                                                                        type="button" id="editGames">
-                                                                        Edit
-                                                                    </button>
-
-                                                                </div>
-                                                            </div>
                                                             <div class="row">
                                                                 <div>
                                                                     <button class="btn btn-primary" style="width: 4rem;"
                                                                         type="button" id="seeGames">
                                                                         See
                                                                     </button>
-
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -116,46 +100,36 @@ require('../config/session.php');
                                                             <!-- First Row in the First Column -->
                                                             <div class="row">
                                                                 <div>
-                                                                    <h2>
+                                                                    <h4>
                                                                         Game Name
-                                                                    </h2>
+                                                                    </h4>
                                                                 </div>
                                                             </div>
                                                             <!-- Second Row in the First Column -->
                                                             <div class="row">
                                                                 <div>
-                                                                    <h4>
+                                                                    <h5>
                                                                         Game Type <i class='bx bx-football'></i>
-                                                                    </h4>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
                                                             <!-- Third Row in the First Column -->
                                                             <div class="row">
                                                                 <div>
-                                                                    <h4>
+                                                                    <h5>
                                                                         Gender
-                                                                    </h4>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <!-- Second Column -->
                                                         <td class="col-sm-1">
-                                                            <div class="row mb-3">
-                                                                <div>
-                                                                    <button class="btn btn-primary" style="width: 4rem;"
-                                                                        type="button" id="editGames">
-                                                                        Edit
-                                                                    </button>
-
-                                                                </div>
-                                                            </div>
                                                             <div class="row">
                                                                 <div>
                                                                     <button class="btn btn-primary" style="width: 4rem;"
                                                                         type="button" id="seeGames">
                                                                         See
                                                                     </button>
-
                                                                 </div>
                                                             </div>
                                                         </td>
