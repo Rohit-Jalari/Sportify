@@ -25,25 +25,16 @@ require('../config/session.php');
 						<div class="card-header d-flex justify-content-between align-items-center">
 							<h1 class="mb-0">Account Details</h5>
 						</div>
-						<form id="formTournament" class="mb-3" action="">
-							<div class="mb-3">
-								<label for="defaultFormControlInput" class="form-label">User Id</label>
-								<input type="text" class="form-control" id="defaultFormControlInput" placeholder="Enter Username" aria-describedby="defaultFormControlHelp" />
-							</div>
-							<div class="mb-3">
-								<label for="defaultFormControlInput" class="form-label">First Name</label>
-								<input type="text" class="form-control" id="defaultFormControlInput" placeholder="Enter First Name" aria-describedby="defaultFormControlHelp" />
-							</div>
-							<div class="mb-3">
-								<label for="defaultFormControlInput" class="form-label">Enter Last Name</label>
-								<input type="text" class="form-control" id="defaultFormControlInput" placeholder="Enter Last Name" aria-describedby="defaultFormControlHelp" />
-							</div>
-							<div class="mb-3">
-								<label for="exampleFormControlInput1" class="form-label">Email</label>
-								<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
-							</div>
 
-						</form>
+						<ul class="list-unstyled mb-1-9">
+							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">User Id:</span> Example</li>
+							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">First Name:</span> John</li>
+							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Last Name</span> Doe</li>
+							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Contact No:</span>++9770123456789</li>
+							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Email:</span> example@example.com</li>
+
+						</ul>
+
 					</div>
 				</div>
 			</div>
