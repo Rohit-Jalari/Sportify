@@ -7,6 +7,14 @@ require('../config/session.php');
 
 <head>
 	<?php include('../includes/head.php'); ?>
+	<link rel="stylesheet" href="../assets/vendor/css/rtl/core-dark.css">
+	<link rel="stylesheet" href="../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css">
+	<style>
+		.row input:focus {
+			border-color: #696cff;
+		}
+	</style>
+	<script src="../assets/vendor/js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -21,25 +29,65 @@ require('../config/session.php');
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
-
-						<div class="card-header d-flex justify-content-between align-items-center">
-							<h1 class="mb-0">Account Details</h5>
+					<div class="card mb-4">
+					<div class="card-header d-flex justify-content-between align-items-center ">
+										<h1 class="mb-0">Account Details</h5>
+									</div>
+									
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">User Id</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">Username</p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">First Name</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">John</p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">Last Name</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">Doe</p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">Email</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">example@example.com</p>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-sm-3">
+									<p class="mb-0">Mobile</p>
+								</div>
+								<div class="col-sm-9">
+									<p class="text-muted mb-0">(+977) 0123456789</p>
+								</div>
+							</div>
+							<hr>
 						</div>
-
-						<ul class="list-unstyled mb-1-9">
-							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">User Id:</span> Example</li>
-							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">First Name:</span> John</li>
-							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Last Name</span> Doe</li>
-							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Contact No:</span>++9770123456789</li>
-							<li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Email:</span> example@example.com</li>
-
-						</ul>
-
+					</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </body>
 <?php include('../includes/script.php') ?>
 
