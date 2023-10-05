@@ -21,10 +21,10 @@ require('../config/session.php');
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
-					
-					<div class="card-header d-flex justify-content-between align-items-center">
-										<h1 class="mb-0">Account Details</h5>
-									</div>
+
+						<div class="card-header d-flex justify-content-between align-items-center">
+							<h1 class="mb-0">Account Details</h5>
+						</div>
 						<form id="formTournament" class="mb-3" action="">
 							<div class="mb-3">
 								<label for="defaultFormControlInput" class="form-label">User Id</label>
