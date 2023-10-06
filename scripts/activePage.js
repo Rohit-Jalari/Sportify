@@ -4,6 +4,9 @@ window.addEventListener('load',()=>{
 		//extracting current file name
 		var urlFilename = url.substring(url.lastIndexOf('/')+1);
 		// console.log("urlFilename = "+urlFilename);
+		if(urlFilename.includes('?')) {
+			urlFilename = urlFilename.split('?')[0];
+		}
 		var activePage = document.querySelectorAll(`a[href="../pages/${urlFilename}"]`);
 		if(urlFilename == 'login.php' || urlFilename == 'register.php' || urlFilename == 'forgotPassword.php'){
 			return;

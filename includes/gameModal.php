@@ -19,6 +19,7 @@
                     <select class="form-select" id="gameType" aria-label="Default select example">
                         <option value="" disabled selected style="display:none;">Select Game</option>
                         <option value="football">Football</option>
+                        <option value="Chess">Chess</option>
                         <option value="race">Race</option>
                     </select>
                     <small></small>
@@ -29,6 +30,7 @@
                         <option value="" disabled selected style="display:none;">Select a Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
+                        <option value="open">Open</option>
                     </select>
                     <small></small>
                 </div>

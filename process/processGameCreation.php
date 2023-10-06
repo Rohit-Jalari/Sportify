@@ -21,7 +21,7 @@ if ($requestData && isset($requestData->gameName)) {
         $gameParticipationCollection = $databaseCon->GamesParticipation;
         $data = [
             "gameID" => $gameID,
-            "userID" => [],
+            "participationDetail" => [],
             "announcement" => []
         ];
         $insertResult = $gameParticipationCollection->insertOne($data);
