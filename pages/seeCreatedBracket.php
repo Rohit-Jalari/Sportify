@@ -19,38 +19,7 @@ require('../config/dbCon.php');
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            <?php include('../includes/createdGameAside.php');
-            function jsonToHtml($jsonData)
-            {
-                // Create an HTML element based on the JSON data
-                $element = "<{$jsonData['tag']}";
-                // Set attributes
-                if (isset($jsonData['attributes'])) {
-                    foreach ($jsonData['attributes'] as $key => $value) {
-                        $element .= " $key=\"$value\"";
-                    }
-                }
-                $element .= ">";
-                // Set text content
-                if (isset($jsonData['textContent'])) {
-                    $element .= htmlspecialchars($jsonData['textContent']);
-                }
-                // Recursively create child elements
-                if (isset($jsonData['children'])) {
-                    foreach ($jsonData['children'] as $child) {
-                        $childElement = jsonToHtml($child);
-                        $element .= $childElement;
-                    }
-                }
-                $element .= "</{$jsonData['tag']}>";
-                return $element;
-            }
-            $filter = ["gameID" => $gameDetail["gameID"]];
-            $result = $databaseCon->BracketInformation->findOne($filter);
-
-            $htmlElement = jsonToHtml($result["JSONRepresentation"]);
-            print_r($htmlElement);
-            ?>
+            <?php include('../includes/createdGameAside.php'); ?>
 
             <div class="layout-page">
                 <?php include('../includes/navbar.php');
@@ -60,29 +29,7 @@ require('../config/dbCon.php');
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="row">
-                            <div class="col-x1">
-                                <div class="card mb-4">
-                                    <div class="card-header d-flex justify-content-center align-items-center">
-                                        <div class="w-100">
-                                            <div class="row">
-                                                <?php print_r($gameDetail); ?>
-                                                <div class="col-7 d-flex justify-content-center align-items-center">
-                                                    <button class="btn btn-primary" type="button"
-                                                        id="generateBracket">Generate Bracket
-                                                    </button>
-                                                </div>
-                                                <div class="col-5">
-                                                    <button class="btn btn-primary " type="button" id="saveBracket">Save
-                                                        Bracket
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Separate box for "Game Name" -->
-                                    </div> <!-- Separate box for the entire content -->
-                                </div>
-                            </div>
+                        <div class="row">                               
                             <div class="col-x1">
                                 <div class="gap-2">
                                     <label class="form-label">
@@ -95,33 +42,16 @@ require('../config/dbCon.php');
                                 <div class="card mb-4">
                                     <div class="card-body mt-2">
                                         <div id="body">
-                                            <div id="updateCurrentBracket" style="height:0;overflow:hidden;"></div>
-
                                             <!-- This div will be used as the root for the library. It must be **perfectly** empty to prevent a FOUC. -->
                                             <div id="bracketsViewerExample" class="brackets-viewer"></div>
 
-                                            <div id="createNewBracket" style="height:0;overflow:hidden;"></div>
-                                            <script type="text/javascript"
-                                                src="../vendor/Bracket/dist/stage-form-creator.min.js"></script>
-
-                                            <div id="input-mask">
-                                                <div>
-                                                    <h3></h3>
-                                                    <label id="opponent1-label" for="opponent1">Opponent 1:
-                                                    </label><input type="number" id="opponent1"><br>
-                                                    <label id="opponent2-label" for="opponent2">Opponent 2:
-                                                    </label><input type="number" id="opponent2"><br>
-                                                    <button id="input-submit">Submit</button>
-                                                </div>
-                                            </div>
-                                            <script type="text/javascript" src="../scripts/generateBracket.js"></script>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>iv>
+                </div>
             </div>
         </div>
     </div>
@@ -131,5 +61,77 @@ require('../config/dbCon.php');
     </div>
 </body>
 <?php include('../includes/script.php') ?>
+<script type="text/javascript" src="../assets/vendor/libs/block-ui/block-ui.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        LoadingUI('.row');
+        fetchBracket();
+        const refreshInterval = 1000; // Refresh every 5 seconds (adjust as needed)
+        setInterval(fetchBracket, refreshInterval);
+    });
+    function fetchBracket() {
+        $.ajax({
+            type: 'POST',
+            url: '../process/processGetBracket.php',
+            success: function (data) {
+                $(".row").unblock();
+                if (data.message == "success") {
+                    // var bracket = document.getElementById('bracketsViewerExample');
+                    var bracketElement = jsonToElement((data.data));
+                    var appended = document.getElementById('bracketsViewerExample');
+                    var bodyElement = document.getElementById('body');
+                    // console.log('scroll top =' + bracketElement.scrollTop);
+                    // console.log('scroll Left =' + bracketElement.scrollLeft);
+                    while (bodyElement.firstChild) {
+                        bodyElement.removeChild(bodyElement.firstChild);
+                    }
+                    document.querySelector('#body').appendChild(bracketElement);
+                    console.log('appended');
+                }
+                // console.log(data.message);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                $(".row").unblock();
+                console.error('Error:', textStatus, errorThrown);
+            }
+        });
+    }
+    function LoadingUI(target) {
+        $(target).block({
+            message: '<div class="spinner-border spinner-border-lg text-primary" role="status"></div>',
+            css: {
+                backgroundColor: "transparent",
+                border: "0"
+            },
+            overlayCSS: {
+                backgroundColor: "#000",
+                opacity: 0.25
+            }
+        })
+    }
+    function jsonToElement(json) {
+        const element = document.createElement(json.tag);
+
+        if (json.attributes) {
+            for (const key in json.attributes) {
+                element.setAttribute(key, json.attributes[key]);
+            }
+        }
+
+        if (json.textContent) {
+            element.textContent = json.textContent;
+        }
+
+        if (json.children) {
+            json.children.forEach(child => {
+                const childElement = jsonToElement(child);
+                element.appendChild(childElement);
+            });
+        }
+        return element;
+    }
+
+
+</script>
 
 </html>

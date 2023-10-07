@@ -16,10 +16,10 @@ if ($requestData) {
     if ($resultInsert->getModifiedCount() > 0) {
         $response = "success";
     } else {
-        $respone = "failed";
+        $response = "failed";
     }
     header("Content-Type: application/json");
-    echo json_decode($respone);
+    echo json_encode($response);
 } else {
-    echo json_decode('INVALID REQUEST!!!');
+    echo json_encode('INVALID REQUEST!!!');
 }

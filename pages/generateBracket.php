@@ -31,7 +31,6 @@ require('../config/session.php');
                                     <div class="card-header d-flex justify-content-center align-items-center">
                                         <div class="w-100">
                                             <div class="row">
-                                                <?php print_r($gameDetail); ?>
                                                 <div class="col-7 d-flex justify-content-center align-items-center">
                                                     <button class="btn btn-primary" type="button"
                                                         id="generateBracket">Generate Bracket
@@ -120,7 +119,7 @@ require('../config/session.php');
     })
     saveBracket.addEventListener('click', () => {
         var root = document.getElementById('bracketsViewerExample');
-        var JSONRepresentation = htmlToJson(root);
+        var JSONRepresentation = elementToJson(root);
         console.log(JSON.stringify(JSONRepresentation));
         LoadingUI('.row');
         $.ajax({
@@ -131,7 +130,7 @@ require('../config/session.php');
             dataType: 'json',
             success: function (data) {
                 $(".row").unblock();
-                console.log(data);                
+                console.log(data);
             },
             error: function (xhr, textStatus, errorThrown) {
                 $(".row").unblock();
@@ -180,7 +179,7 @@ require('../config/session.php');
             var nameContent = nameElement.innerHTML.trim(); // Trim removes leading/trailing whitespace
 
             // Check if the content is not empty and not equal to "BYE"
-            if (nameContent !== '' && nameContent !== 'BYE') {
+            if (nameContent !== '' && nameContent !== 'BYE' && nameContent !== 'Loser of Semi 1' && nameContent !== 'Loser of Semi 2') {
                 let endIndex = nameContent.indexOf('</span>');
                 var contentAfterSpan = endIndex !== -1 ? nameContent.substring(endIndex + 7) : nameContent;
                 console.log(contentAfterSpan);
@@ -228,51 +227,33 @@ require('../config/session.php');
         }
         return null; // Cookie not found
     }
-    function htmlToJson(element) {
-        var result = {};
+    function elementToJson(element) {
+        const jsonElement = {};
 
-        // Convert attributes to JSON
-        var attributes = element.attributes;
-        for (var i = 0; i < attributes.length; i++) {
-            var attribute = attributes[i];
-            result[attribute.name] = attribute.value;
-        }
-        // Convert child elements to JSON recursively
-        var children = element.children;
-        if (children.length > 0) {
-            result.children = [];
-            for (var j = 0; j < children.length; j++) {
-                var childElement = children[j];
-                result.children.push(htmlToJson(childElement));
+        jsonElement.tag = element.tagName.toLowerCase();
+
+        if (element.attributes.length > 0) {
+            jsonElement.attributes = {};
+            for (let i = 0; i < element.attributes.length; i++) {
+                const attr = element.attributes[i];
+                jsonElement.attributes[attr.name] = attr.value;
             }
         }
-        // Convert text content to JSON
-        var textContent = element.textContent.trim();
-        if (textContent !== '') {
-            result.textContent = textContent;
+
+        if (element.hasChildNodes()) {
+            jsonElement.children = [];
+            element.childNodes.forEach(child => {
+                if (child.nodeType === Node.ELEMENT_NODE) {
+                    jsonElement.children.push(elementToJson(child));
+                } else if (child.nodeType === Node.TEXT_NODE && child.textContent.trim() !== "") {
+                    jsonElement.textContent = child.textContent.trim();
+                }
+            });
         }
-        return result;
+
+        return jsonElement;
     }
-    function jsonToHtml(jsonData) {
-        var element = document.createElement(jsonData.tag);
-        // Set attributes
-        for (var key in jsonData.attributes) {
-            element.setAttribute(key, jsonData.attributes[key]);
-        }
-        // Set text content
-        if (jsonData.textContent) {
-            element.textContent = jsonData.textContent;
-        }
-        // Recursively create child elements
-        if (jsonData.children) {
-            for (var i = 0; i < jsonData.children.length; i++) {
-                var child = jsonData.children[i];
-                var childElement = jsonToHtml(child);
-                element.appendChild(childElement);
-            }
-        }
-        return element;
-    }
+
 
 </script>
 
