@@ -35,50 +35,50 @@ require('../config/session.php');
 									</div>
 									
 						<div class="card-body">
-							<div class="row">
+							
 								<div class="col-sm-3">
-									<p class="mb-0">User Id</p>
+									<p class="mb-0">User Id:</p>
 								</div>
 								<div class="col-sm-9">
 									<p class="text-muted mb-0">Username</p>
 								</div>
-							</div>
+							
 							<hr>
-							<div class="row">
+							
 								<div class="col-sm-3">
-									<p class="mb-0">First Name</p>
+									<p class="mb-0">First Name:</p>
 								</div>
 								<div class="col-sm-9">
 									<p class="text-muted mb-0">John</p>
 								</div>
-							</div>
+							
 							<hr>
-							<div class="row">
+							
 								<div class="col-sm-3">
-									<p class="mb-0">Last Name</p>
+									<p class="mb-0">Last Name:</p>
 								</div>
 								<div class="col-sm-9">
 									<p class="text-muted mb-0">Doe</p>
 								</div>
-							</div>
+							
 							<hr>
-							<div class="row">
+							
 								<div class="col-sm-3">
-									<p class="mb-0">Email</p>
+									<p class="mb-0">Email:</p>
 								</div>
 								<div class="col-sm-9">
 									<p class="text-muted mb-0">example@example.com</p>
 								</div>
-							</div>
+							
 							<hr>
-							<div class="row">
+							
 								<div class="col-sm-3">
-									<p class="mb-0">Mobile</p>
+									<p class="mb-0">Mobile:</p>
 								</div>
 								<div class="col-sm-9">
 									<p class="text-muted mb-0">(+977) 0123456789</p>
 								</div>
-							</div>
+							
 							<hr>
 						</div>
 					</div>

@@ -41,6 +41,16 @@ require('../config/session.php');
 									<label for="lastname" class="form-label">Last Name</label>
 									<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your Last Name" </div>
 									<div class="mb-3 Input">
+										<label for="gender" class="form-label"> Select Gender</label>
+										<select id="gender" name="gender">
+											<option value="none" selected>Gender</option>
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+											<option value="other">other</option>
+										</select>
+									</div>
+									<div class="mb-3 Input">
+
 										<label for="email" class="form-label">Email</label>
 										<input type="email" class="form-control   id=" email" name="email" placeholder="Enter your email" </div>
 										<div class="mb-3 form-password-toggle Input">
@@ -60,6 +70,10 @@ require('../config/session.php');
 									</div>
 								</div>
 							</div>
+						</form>
+						<div class="d-grid gap-2 col-1 mx-auto">
+  <button class="btn btn-primary btn-lg" type="button">Update</button>
+</div>
 					</div>
 				</div>
 </body>
