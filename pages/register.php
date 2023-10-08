@@ -5,7 +5,7 @@ unset($_SESSION['error']);
 <!DOCTYPE html>
 <html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
- data-template="vertical-menu-template-free">
+  data-template="vertical-menu-template-free">
 
 <head>
   <?php include('../includes/head.php'); ?>
@@ -53,6 +53,7 @@ unset($_SESSION['error']);
     // $userID = generateID(6);
     // var_dump($emailMatch);
     // var_dump($userID);
+    $gender = 'male';
   
     //returns the no.of rows where email is found i.e returns 1 if email is found in DB
     if ($emailMatch == 0) {
@@ -73,7 +74,9 @@ unset($_SESSION['error']);
         "email" => $email,
         "password" => $hPassword,
         "tournamentID" => null,
-        "participatedTournaments" => null
+        "participatedTournaments" => new stdClass(),
+        "gender" => $gender,
+        "authenticatedMails" => new stdClass(),
       ];
 
       $insertResult = $userCollection->insertOne($userData);

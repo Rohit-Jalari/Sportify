@@ -45,11 +45,6 @@
 						<div data-i18n="Code">Enter Code</div>
 					</a>
 				</li>
-				<li class="menu-item">
-					<a href="../pages/shortlist.php" class="menu-link">
-						<div data-i18n="Shortlist">Shortlist</div>
-					</a>
-				</li>
 			</ul>
 		</li>
 

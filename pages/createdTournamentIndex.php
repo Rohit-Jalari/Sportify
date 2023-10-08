@@ -57,7 +57,7 @@ require('../config/session.php');
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<?php
-						print_r($participatedTournament);
+						// print_r($participatedTournament);
 						?>
 						<div class="row">
 							<div class="col-x1">
@@ -95,49 +95,24 @@ require('../config/session.php');
 										</div>
 									</div>
 								</div>
-								<div class="card mb-1">
-									<div class="card-header d-flex justify-content-center align-items-center"
-										style="padding:1rem;">
-										<div class="w-100">
-											<form id="formAuthentication" action="" method="POST">
-												<div class="row">
-													<div class="col-8">
-														<label class="switch w-100">
-															<input type="checkbox" class="switch-input <?php if ($participatedTournament["isActive"] == 'on') { ?> is-valid <?php }
-															; ?>" name="activeCheck" <?php if ($participatedTournament["isActive"] == 'on') { ?> checked <?php }
-															 ; ?> />
-															<span class="switch-label w-75 text-end me-4"><strong>Status</strong></span>
-															<span class="switch-toggle-slider">
-																<span class="switch-on">
-																	<i class="bx bx-check"></i>
-																</span>
-																<span class="switch-off">
-																	<i class="bx bx-x"></i>
-																</span>
-															</span>
-														</label>
-													</div>
-													<div class="col-4">
-														<button class="btn btn-primary" name="activeSave"
-															value="activeSave">
-															Save
-														</button>
-													</div>
-												</div>
-											</form>
-											<div class="text-center mt-1">
-												<h6>The tournament is <span>Active</span></h6>
-											</div>
-										</div>
+							</div>
+							<div class="col-x1">
+							<h1 class="mb-3 mt-3">Announcement</h1>
+								<div class="card mb-4">
+									<div class="card-header d-flex justify-content-between align-items-center">
+										
 									</div>
+									<div class="card-body d-flex justify-content-center align-items-center" style="height:50vh;">
+										<h3>There is no Announcement yet</h3>
 								</div>
 							</div>
-							<!-- Separate box for "Game Name" -->
-						</div> <!-- Separate box for the entire content -->
-					</div>
+						</div>
+						<!-- Separate box for "Game Name" -->
+					</div> <!-- Separate box for the entire content -->
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- Overlay -->
 	<div class="layout-overlay layout-menu-toggle"></div>

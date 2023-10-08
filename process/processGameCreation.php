@@ -26,7 +26,23 @@ if ($requestData && isset($requestData->gameName)) {
         ];
         $insertResult = $gameParticipationCollection->insertOne($data);
         if ($insertResult->getInsertedCount() > 0) {
-            $response = "success";
+            $bracketCollection = $databaseCon->BracketInformation;
+            $data = [
+                "gameID" => $gameID,
+                "JSONRepresentation" => new stdClass(),
+            ];
+            $bracketInsert = $bracketCollection->insertOne($data);
+            if ($bracketInsert->getInsertedCount() > 0) {
+                $ScoreCardCollection = $databaseCon->ScoreCardInformation;
+                $data = [
+                    "gameID" => $gameID,
+                    "JSONRepresentation" => new stdClass(),
+                ];
+                $scoreCardInsert = $ScoreCardCollection->insertOne($data);
+                if ($bracketInsert->getInsertedCount() > 0) {
+                $response = "success";
+                }
+            }
         }
     }
     // Set the response content type to JSON
@@ -35,7 +51,6 @@ if ($requestData && isset($requestData->gameName)) {
 } else {
     echo json_encode("Invalid request");
 }
-
 function generateID($length)
 {
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';

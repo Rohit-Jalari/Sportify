@@ -42,7 +42,7 @@ require('../config/dbCon.php');
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            <?php include('../includes/createdGameAside.php') ?>
+            <?php include('../includes/participatedGameAside.php') ?>
             <div class="layout-page">
                 <?php include('../includes/navbar.php') ?>
                 <!-- Content wrapper -->
@@ -53,7 +53,7 @@ require('../config/dbCon.php');
                                 <div class="gap-2">
                                     <label class="form-label">
                                         <h3>
-                                            Participant List
+                                            Game List
                                         </h3>
                                     </label>
                                 </div>
@@ -90,7 +90,7 @@ require('../config/dbCon.php');
                         </div>
                         <?php
                         // print_r($_SESSION['userRecord']);
-                        // print_r($gameDetail);
+                        print_r($gameDetail);
                         ?>
                     </div>
                 </div>

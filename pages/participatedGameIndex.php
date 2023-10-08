@@ -17,16 +17,27 @@ require('../config/session.php');
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            <?php include('../includes/createdGameAside.php') ?>
+            <?php include('../includes/participatedGameAside.php') ?>
 
             <div class="layout-page">
                 <?php include('../includes/navbar.php') ?>
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <?php
-                        print_r($gameDetail);
-                        ?>                        
+                        <div class="col-x1">
+                            <h1 class="mb-3 mt-3">Announcement</h1>
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+
+                                </div>
+                                <div class="card-body d-flex justify-content-center align-items-center"
+                                    style="height:50vh;">
+                                    <h3>There is no Announcement yet</h3>
+                                </div>
+                            </div>
+                            <!-- Separate box for "Game Name" -->
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -37,4 +48,5 @@ require('../config/session.php');
     </div>
 </body>
 <?php include('../includes/script.php') ?>
+
 </html>

@@ -38,6 +38,10 @@ function participateProcessor(target, input, max) {
 			dataType: 'json',
 			success: function (data) {
 				let mailRestrict = updateInformation(data, target);
+				if(data.openParticipation == "off") {
+					let participateButton = document.getElementById('participateModal');
+					participateButton.disabled = true;
+				}
 				$("#target").unblock();
 				if (mailRestrict != 'None') {
 					modalProcess(mailRestrict);
@@ -70,12 +74,14 @@ function participateProcessor(target, input, max) {
 		} else {
 			// $(`#${target}`).find('.card-title')[0].text(data.tournamentName); //For loading spinner check
 			let emailRestriction = (data.emailRestriction == null) ? 'None' : data.emailRestriction;
+			let openParticipation = data.openParticipation.toUpperCase();
 			$(`#${target}`).html(`
 			<div class="card text-center" style="border: 1px solid #444564;">
 				<div class="card-body">
 					<h3 class="card-title">${data.tournamentName}</h3>
 					<p class="card-text" style="text-align:justify;display:flex;justify-content:center;">${data.description}</p>
-					<p class="card-text" style="text-align:justify;display:flex;justify-content:center;">Email-Restriction  :  <span id="tournamentEmailRestriction" class="pl-4">${emailRestriction}</span></p>
+					<p class="card-text" style="text-align:justify;display:flex;justify-content:center;">Email-Restriction  :  <span id="tournamentEmailRestriction" class="ps-3">${emailRestriction}</span></p>
+					<p class="card-text" style="text-align:justify;display:flex;justify-content:center;">Open-Participation  :  <span id="tournamentEmailRestriction" class="ps-3 ">${openParticipation}</span></p>
 					<button id='participateModal' class="btn btn-primary">Participate</button>
 				</div>
 			</div>

@@ -3,11 +3,9 @@ require('../config/session.php');
 require('../config/dbCon.php');
 ?>
 <!DOCTYPE html>
-<html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
     data-template="vertical-menu-template-free">
-
-
+    
 <head>
     <?php include('../includes/head.php'); ?>
     <link rel="stylesheet" href="../assets/vendor/css/rtl/core-dark.css">
@@ -149,62 +147,23 @@ require('../config/dbCon.php');
             </div>
             <!--Overlay -->
             <div class="layout-overlay layout-menu-toggle"></div>
+            <?php include('../includes/joinGameModal.php');?>
         </div>
     </div>
 </body>
 <?php include('../includes/script.php') ?>
-<?php if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != true) { ?>
-    <script>
-        var myModal = new bootstrap.Modal(document.getElementById('loginModalToggle'));
-        window.addEventListener('load', () => {
-            myModal.show();
-        });
-    </script>
-<?php } ?>
-
 <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-<script src="../assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript">
-    $("#bs-datepicker-daterange").datepicker({
-        format: "yyyy/mm/dd"
-    });
-</script>
 <script type="text/javascript" src="../assets/vendor/libs/cleave/Cleave.min.js"></script>
 <script type="text/javascript" src="../assets/vendor/libs/block-ui/block-ui.js"></script>
-
 <script type="text/javascript">
-    function seeGame(e) {
-        let gameID = e.getAttribute("data-gameid");
-        $.ajax({
-            url: "../config/setGameSession.php",
-            method: "POST",
-            data: { gameID: gameID },
-            success: function (response) {
-                location.replace('participatedGameIndex.php');
-            },
-            error: function (error) {
-                console.error("Error setting session: " + error);
-            }
-        });
-    }
-    function joinGame(e) {
-        let gameID = e.getAttribute("data-gameid");
-        $.ajax({
-            url: "../config/setGameSession.php",
-            method: "POST",
-            data: { gameID: gameID },
-            success: function (response) {
-                if(response == 'success') {
-                    console.log('hey');
-                    location.replace('participatedGameListjoin.php');
-                }
-                // location.replace('participatedGameIndex.php');
-            },
-            error: function (error) {
-                console.error("Error setting session: " + error);
-            }
-        });
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        var joinGameModal = new bootstrap.Modal(document.getElementById('joinGameModalToggle'));
+        joinGameModal.show();
+        var closeModal = document.getElementById('closeModal');
+        closeModal.addEventListener('click', () => {
+            location.replace('participatedGamelist.php');
+        })
+    });
 </script>
 
 </html>

@@ -36,6 +36,8 @@ require('../config/session.php');
 		$description = htmlspecialchars($_POST['description']);
 		$emailRestriction = htmlspecialchars($_POST['emailRestriction']);
 		$emailRestriction = ($emailRestriction != '') ? $emailRestriction : null;
+		$openParticipation = 'on';
+		$isActive = 'off';
 		//collection
 		$tournamentCollection = $databaseCon->Tournaments;
 
@@ -54,7 +56,9 @@ require('../config/session.php');
 			'endDate' => $endDate,
 			'location' => $location,
 			'description' => $description,
-			'emailRestriction' => $emailRestriction
+			'emailRestriction' => $emailRestriction,
+			'openParticipation' => $openParticipation,
+			'isActive' => $isActive
 		];
 		$session = $mongoClient->startSession();
 
@@ -80,16 +84,16 @@ require('../config/session.php');
 				throw new Exception("Update failed");
 			}
 			
-			$_SESSION['tournamentDetail'] = $tournamentDetail;
+			$_SESSION['participatedTournament'] = $tournamentDetail;
 			$participantData = [
 				"tournamentID" => $tournamentID ,
-				"userID" => null
+				"userID" => []
 			];
-			$participantInsert = $databaseCon->Participants->insertOne($participantData);
+			$participantInsert = $databaseCon->Participation->insertOne($participantData);
 			$session->commitTransaction();
 			?>
 			<script>
-				location.replace("tournamentIndex.php");
+				location.replace("createdTournamentIndex.php");
 			</script>
 			<?php
 		} catch (Exception $e) {

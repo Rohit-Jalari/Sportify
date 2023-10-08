@@ -9,6 +9,7 @@ require('../config/session.php');
 
 <head>
 	<?php include('../includes/head.php'); ?>
+	<link rel="stylesheet" href="../assets/vendor/css/rtl/core-dark.css">
 </head>
 
 <body>
@@ -23,9 +24,22 @@ require('../config/session.php');
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<div class="container-xxl flex-grow-1 container-p-y">
-						<?php
-						print_r($participatedTournament); 
-						?>
+						<!-- <?php
+						//print_r($participatedTournament);
+						?> -->
+						<div class="col-x1">
+							<h1 class="mb-3 mt-3">Announcement</h1>
+							<div class="card mb-4">
+								<div class="card-header d-flex justify-content-between align-items-center">
+
+								</div>
+								<div class="card-body d-flex justify-content-center align-items-center"
+									style="height:50vh;">
+									<h3>There is no Announcement yet</h3>
+								</div>
+							</div>
+							<!-- Separate box for "Game Name" -->
+						</div>
 					</div>
 				</div>
 			</div>

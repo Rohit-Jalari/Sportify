@@ -57,7 +57,7 @@ require('../config/session.php');
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <?php
-                        print_r($gameDetail);
+                        // print_r($gameDetail);
                         ?>
                         <div class="row">
                             <div class="col-x1">
@@ -69,9 +69,11 @@ require('../config/session.php');
                                                 <div class="row">
                                                     <div class="col-8">
                                                         <label class="switch w-100">
-                                                            <input type="checkbox" class="switch-input <?php if ($participatedTournament["openParticipation"] == 'on') { ?> is-valid <?php }
-                                                            ; ?> " name="openCheck" <?php if ($participatedTournament["openParticipation"] == 'on') { ?> checked <?php }
-                                                              ; ?> />
+                                                            <input type="checkbox"
+                                                                class="switch-input <?php if ($participatedTournament["openParticipation"] == 'on') { ?> is-valid <?php }
+                                                                ; ?> "
+                                                                name="openCheck" <?php if ($participatedTournament["openParticipation"] == 'on') { ?> checked <?php }
+                                                                ; ?> />
                                                             <span class="switch-label w-75 text-end me-4">
                                                                 <strong>Open Participation</strong></span>
                                                             <span class="switch-toggle-slider">
@@ -96,15 +98,26 @@ require('../config/session.php');
                                     </div>
                                 </div>
                             </div>
-                            <!-- Separate box for "Game Name" -->
-                        </div> <!-- Separate box for the entire content -->
+                            <div class="col-x1">
+                                <h1 class="mb-3 mt-3">Announcement</h1>
+                                <div class="card mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+
+                                    </div>
+                                    <div class="card-body d-flex justify-content-center align-items-center"
+                                        style="height:50vh;">
+                                        <h3>There is no Announcement yet</h3>
+                                    </div>
+                                </div>
+                                <!-- Separate box for "Game Name" -->
+                            </div> <!-- Separate box for the entire content -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
 </body>
 <?php include('../includes/script.php') ?>
@@ -119,4 +132,5 @@ require('../config/session.php');
         });
     });
 </script>
+
 </html>

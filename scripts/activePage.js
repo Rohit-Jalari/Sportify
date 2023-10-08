@@ -6,6 +6,10 @@ window.addEventListener('load',()=>{
 		// console.log("urlFilename = "+urlFilename);
 		if(urlFilename.includes('?')) {
 			urlFilename = urlFilename.split('?')[0];
+		}		
+		console.log(urlFilename);
+		if(urlFilename == 'participatedGameListjoin.php') {
+			urlFilename = 'participatedGameList.php';
 		}
 		var activePage = document.querySelectorAll(`a[href="../pages/${urlFilename}"]`);
 		if(urlFilename == 'login.php' || urlFilename == 'register.php' || urlFilename == 'forgotPassword.php'){

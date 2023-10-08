@@ -25,7 +25,7 @@ require('../config/session.php');
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <?php
-                        print_r($gameDetail);
+                        // print_r($gameDetail);
                         ?>                        
                     </div>
                 </div>

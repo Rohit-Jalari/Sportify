@@ -7,9 +7,9 @@ if (isset($_POST['gameID'])) {
     $result = $databaseCon->Games->findOne(["gameID" => $ID]);
     if ($result) {
         $_SESSION['gameDetail'] = $result;
-        echo "Session variable set successfully";
+        echo "success";
     }
 } else {
-    echo "Error: Tournament name not provided";
+    echo "Error: Game name not provided";
 }
 ?>
